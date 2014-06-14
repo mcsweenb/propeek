@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+
+  <%= stylesheet_link_tag :home %>
+
+  <script src="_/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body class="home">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div class="header-container">
+    <header class="wrapper clearfix">
+      <a href="/" class="site-logo"><b>Propeek</b></a>
+      <nav>
+        <ul>
+          <li><a href="#how-works">How it works</a></li>
+        </ul>
+      </nav>
+      <div class="profile-link">
+        <a href="/login.html">Login</a> <b>or</b> <a href="/register1.html" class="join">Join</a>
+      </div>
+      <div class="clearfix"></div>
+      
+    </header>
+    
+  </div>
+  
+  <div class="main-container">
+    
+    <div class="home-search-holder">
+      <h1 class="tagline">Find and book local professionals</h1>
+      <a id="how-works-link-mobile" href="#how-works">How it works</a>
+      <div class="search-panel">
+        
+        <div class="dd-holder">
+          <h2>I'm looking for a:</h2>
+          <select class="profession" >
+            <!-- <option>Choose one...</option> -->
+            <option>Accountant</option>
+            <option>Lawyer</option>
+            <option>Private Investigator</option>
+          </select>
+        </div>
+        
+        <div class="dd-holder">
+          <h2>that specializes in:</h2>
+          <select class="profession" >
+            <!-- <option>Choose one...</option> -->
+            <option>Immigration</option>
+          </select>
+        </div>
+        
+        <hr>
+        
+        <div class="input-holder">
+          <h2>in:</h2>
+          <input type="text" value="New York, NY">
+        </div>
+        
+        <hr>
+        
+        <a class="submit btn-blue" href="/search.html">Find Professionals</a>
+        
+        <div class="clearfix"></div>
+        
+      </div> <!-- end search-panel -->
+      
+    </div> <!-- home-search-holder -->
+    
+    <div class="main wrapper clearfix">
+      
+      <article class="featured">
+        <header>
+          <h2>Featured professionals in New York</h2>
+          <a href="/register1.html">List your business on Propeek</a>
+          <div class="clearfix"></div>
+        </header>
+        <section>
+
+	  <div class="list_carousel responsive">
+	    <ul id="home-featured-carousel" >
+	      <li >
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional1.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Peter Michaels</h3><br><h4>Private Investigator</h4></div></a>
+	      </li>
+	      <li>
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional2.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Lisa Stern</h3><br><h4>Divorce Lawyer</h4></div></a>
+	      </li>
+	      <li>
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional2.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Leonard Stuart</h3><br><h4>Small Business Accountant</h4></div></a>
+	      </li>
+	      
+	      <li>
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional1.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Leonard Stuart</h3><br><h4>Small business accountant</h4></div></a>
+	      </li>
+	      <li>
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional1.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Leonard Stuart</h3><br><h4>Small business accountant</h4></div></a>
+	      </li>
+	      <li>
+		<a href="http://bm013.dev/profile.html" style="background:url(<%= image_path 'content/home-professional1.jpg'%>) center center no-repeat; background-size:cover;"><div class="text"><h3>Leonard Stuart</h3><br><h4>Small business accountant</h4></div></a>
+	      </li>
+	    </ul>
+	  </div>
+	  <div class="carousel-controls">
+	    <a id="carousel-prev" class="carousel-arrow prev" href="#">&lt;</a>
+	    <a id="carousel-next" class="carousel-arrow next" href="#">&gt;</a>
+	    <div class="pager-outer">
+	      <div id="pager2" class="pager"></div>
+	    </div>
+	  </div>
+        </section>
+        <a class="list-biz-mobile" href="/register1.html">List your business on Propeek</a>
+      </article>
+
+    </div> <!-- #main -->
+    
+    <div class="gray-container clearfix">
+      <div class="wrapper">
+        <article id="how-works" class="how-works">
+          <ul>
+            <li class="one"><div class="icon"></div><p><em>Search</em> for professionals near you</p></li>
+            <li class="two"><div class="icon"></div><p><em>Read</em> reviews to find the one you like</p></li>
+            <li class="three"><div class="icon"></div><p><em>Contact</em> them to set up an appointment</p></li>
+          </ul>
+          
+        </article>
+      </div>
+    </div>
+    
+  </div> <!-- #main-container -->
+
+  <div class="footer-container">
+    <footer class="wrapper">
+      <ul class="col1">
+        <li><a href="#">How it works</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">List your business</a></li>
+      </ul>
+      <ul class="col2">
+        <li><a href="#">Terms of use</a></li>
+        <li><a href="#">Privacy policy</a></li>
+      </ul>
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="_/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+  
+  <script src="_/js/vendor/jquery.minimalect.min.js"></script>
+  <script src="_/js/vendor/jquery.touchSwipe.min.js"></script>
+  <script src="_/js/vendor/jquery.carouFredSel.min.js"></script>
+  
+  
+  <script src="_/js/main.js"></script>
+
+  <script>
+  //	Responsive layout, resizing the items
+  $('#home-featured-carousel').carouFredSel({
+    responsive: true,
+    width: '100%',
+    scroll: 1,
+    prev: '#carousel-prev',
+    next: '#carousel-next',
+    pagination: "#pager2",
+    auto: false,
+    items: {
+      width: 400,
+      //	height: '30%',	//	optionally resize item-height
+      visible: {
+	min: 1,
+	max: 6
+      }
+    },
+    swipe: {
+      onMouse: true,
+      onTouch: true
+    }
+  });
+  var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+                 g.src='//www.google-analytics.com/ga.js';
+                 s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+</body>
+</html>

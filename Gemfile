@@ -30,7 +30,6 @@ group :development, :test do
   gem 'factory_girl'
 end
 
-gem 'haml'
 gem 'shoulda-matchers'
 
 # Use ActiveModel has_secure_password
