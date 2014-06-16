@@ -11,5 +11,7 @@
 //=require vendor/jquery.minimalect.min.js
 //=require vendor/jquery.touchSwipe.min.js
 //=require vendor/jquery.carouFredSel.min.js
+//=require vendor/jquery.Jcrop.min.js
 //= require main
+//= require register
 

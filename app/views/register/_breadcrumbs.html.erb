@@ -1,0 +1,15 @@
+<header class="main">
+  <h1>Registration</h1>
+  
+  <div class="steps">
+    <span class="label">Step</span>
+    <ul>
+      <% (1..4).each do |i| %>
+      <li <%= "class=active" if step_no == i %>>
+        <a href="#"><%= i %></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</header>

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'register' => 'register#step1'
+  get 'register2' => 'register#step2'
+  get 'register3' => 'register#step3'
+  get 'register4' => 'register#step4'
+
   get 'home/index'
 
   root 'home#index'
