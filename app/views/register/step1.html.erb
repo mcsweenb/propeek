@@ -2,22 +2,27 @@
 <%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
 <% end %>
 
-<form>
+<form action="/register" id="register_step1">
   <section>
     <h2>Account information</h2>
     <fieldset>
       <div class="col1">
 	<legend>Email*</legend>
-	<input type="text">
+	<input name="email" type="text">
+
 	<legend>First name*</legend>
-	<input type="text">
+	<input name="firstname" type="text">
+
 	<legend>Last name*</legend>
-	<input type="text">
+	<input name="lastname" type="text">
+
 	<legend>Password*</legend>
-	<input type="text">
+	<input name="password" type="text">
 	<div class="error"><span>This is a sample error</span></div>
+
 	<legend>Confirm password*</legend>
-	<input type="text">
+	<input name="confirm_password" type="text">
+
       </div>
       <div class="col2 profile-photo">
 	<legend>Profile photo</legend>
@@ -73,7 +78,7 @@
   </section>
   
   <footer>
-    <a href="/register2.html" class="submit btn-blue">Next</a>	
+    <a href="/register2.html" method="post" class="submit btn-blue">Next</a>	
     <div class="clearfix"></div>
   </footer>
 </form>

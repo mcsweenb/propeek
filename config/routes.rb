@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get 'register3' => 'register#step3'
   get 'register4' => 'register#step4'
 
+  post 'register' => 'register#submit_step1'
+  post 'register2' => 'register#submit_step2'
+  post 'register3' => 'register#submit_step3'
+  post 'register4' => 'register#submit_step4'
+
   get 'home/index'
 
   root 'home#index'
