@@ -10,7 +10,6 @@ var register = (function(){
 	setup_next_button : function () {
 	    $(".register_form").on("click", "a.submit", function ( ev ) {
 		ev.preventDefault();
-		console.log("Next clicked");
 		$(".register_form").submit();
 	    });
 	},
@@ -18,6 +17,10 @@ var register = (function(){
 	setup_photo_selector: function () {
 	    var holder = document.getElementById('photo-drop-zone'),
 	    state = document.getElementById('status');
+	    
+	    if ( holder === null ) {
+		return false;
+	    }
 	    
 	    if (typeof window.FileReader === 'undefined') {
 		state.className = 'fail';

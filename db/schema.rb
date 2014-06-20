@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140617104013) do
     t.datetime "updated_at"
     t.string   "first_name",         limit: 128,             null: false
     t.string   "last_name",          limit: 128,             null: false
-    t.string   "bio",                                        null: false
+    t.string   "bio"
     t.string   "linkedin_handle"
     t.string   "twitter_handle"
   end

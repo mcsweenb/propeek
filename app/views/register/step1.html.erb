@@ -2,26 +2,30 @@
 <%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
 <% end %>
 
-<form action="/register" id="register_step1" method="post" class="register_form">
+<%= form_for :user, url: '/register', html: {class: 'register_form'} do |f| %>
   <section>
     <h2>Account information</h2>
     <fieldset>
       <div class="col1">
 	<legend>Email*</legend>
-	<input name="email" type="text">
+        <%= f.text_field :email %>
+        <%= render :partial => 'error', :locals => {attr: :email} %>
 
 	<legend>First name*</legend>
-	<input name="firstname" type="text">
+        <%= f.text_field :first_name %>
+        <%= render :partial => 'error', :locals => {attr: :first_name} %>
 
 	<legend>Last name*</legend>
-	<input name="lastname" type="text">
+        <%= f.text_field :last_name %>
+        <%= render :partial => 'error', :locals => {attr: :last_name} %>
 
 	<legend>Password*</legend>
-	<input name="password" type="text">
-	<div class="error"><span>This is a sample error</span></div>
+        <%= f.password_field :password %>
+        <%= render :partial => 'error', :locals => {attr: :password} %>
 
 	<legend>Confirm password*</legend>
-	<input name="confirm_password" type="text">
+        <%= f.password_field :password_confirmation %>
+        <%= render :partial => 'error', :locals => {attr: :password_confirmation} %>
 
       </div>
       <div class="col2 profile-photo">
@@ -81,7 +85,7 @@
     <a href="#" class="submit btn-blue">Next</a>	
     <div class="clearfix"></div>
   </footer>
-</form>
+<% end  %>
 
 <% content_for :register_photo do %>
 <div id="crop-photo-holder" class="modal-window-holder">
@@ -104,3 +108,4 @@
   <div class="bg"></div>
 </div>
 <% end %>
+

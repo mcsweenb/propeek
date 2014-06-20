@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: {maximum: 128}
   validates :last_name, presence: true, length: {maximum: 128}
 
-  validates :linkedin_handle, length: {minimum: 5, maximum: 30}
-  validates :twitter_handle, length: {maximum: 15}
+  validates :linkedin_handle, length: {minimum: 5, maximum: 30, allow_nil: true}
+  validates :twitter_handle, length: {maximum: 15, allow_nil: true}
 
   acts_as_authentic do |c|
    c.validate_email_field = true

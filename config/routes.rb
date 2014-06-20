@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
 
-  get 'register' => 'register#step1'
-  get 'register2' => 'register#step2'
-  get 'register3' => 'register#step3'
-  get 'register4' => 'register#step4'
-
-  post 'register' => 'register#submit_step1'
-  post 'register2' => 'register#submit_step2'
-  post 'register3' => 'register#submit_step3'
-  post 'register4' => 'register#submit_step4'
+  match 'register' => 'register#step1', :via => [:get, :post]
+  match 'register2' => 'register#step2', :via => [:get, :post]
+  match 'register3' => 'register#step3', :via => [:get, :post]
+  match 'register4' => 'register#step4', :via => [:get, :post]
 
   get 'home/index'
 
