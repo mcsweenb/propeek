@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe RegisterController, :type => :controller do
 
+  setup :activate_authlogic
+
   describe "GET 'step1'" do
     it "returns http success" do
       get 'step1'
@@ -39,7 +41,6 @@ RSpec.describe RegisterController, :type => :controller do
     end
 
     context "Submit step 1 with all valid data" do 
-
       it "returns http success " do
         user_attributes = attributes_for(:user)
         post 'step1', user: user_attributes
@@ -51,28 +52,53 @@ RSpec.describe RegisterController, :type => :controller do
         expect(response).to be_success
         expect(response).to render_template(:step2)
       end
+    end
 
+    context "Already logged in user" do 
+      describe "accessing step1" do
+        it "should take user to step2" do
+          user = FactoryGirl.create(:user)
+          UserSession.create(user)
+
+          get 'step1'
+
+          expect(response).to be_success
+          expect(response).to render_template(:step2)  
+        end
+      end
     end
 
   end
 
   describe "GET 'step2'" do
     it "returns http success" do
+      user = FactoryGirl.create(:user)
+      UserSession.create(user)
+
       get 'step2'
+
       expect(response).to be_success
     end
   end
 
   describe "GET 'step3'" do
     it "returns http success" do
+      user = FactoryGirl.create(:user)
+      UserSession.create(user)
+
       get 'step3'
+
       expect(response).to be_success
     end
   end
 
   describe "GET 'step4'" do
     it "returns http success" do
+      user = FactoryGirl.create(:user)
+      UserSession.create(user)
+
       get 'step4'
+
       expect(response).to be_success
     end
   end

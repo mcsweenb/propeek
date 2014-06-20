@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
-  match 'register' => 'register#step1', :via => [:get, :post]
-  match 'register2' => 'register#step2', :via => [:get, :post]
-  match 'register3' => 'register#step3', :via => [:get, :post]
-  match 'register4' => 'register#step4', :via => [:get, :post]
+  get 'profile/show'
+
+  match 'register' => 'register#step1', :via => [:get, :post], :as => :register
+  match 'register2' => 'register#step2', :via => [:get, :post], :as => :register2
+  match 'register3' => 'register#step3', :via => [:get, :post], :as => :register3
+  match 'register4' => 'register#step4', :via => [:get, :post], :as => :register4
+
+  get 'profile' => 'profile#show', :via => [:get], :as => :profile
 
   get 'home/index'
 

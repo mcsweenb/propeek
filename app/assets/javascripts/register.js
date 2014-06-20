@@ -3,11 +3,11 @@ var register = (function(){
     return {
 
 	setup : function () {
-	    register.setup_next_button();
+	    register.setup_buttons();
 	    register.setup_photo_selector();
 	},
 
-	setup_next_button : function () {
+	setup_buttons : function () {
 	    $(".register_form").on("click", "a.submit", function ( ev ) {
 		ev.preventDefault();
 		$(".register_form").submit();
