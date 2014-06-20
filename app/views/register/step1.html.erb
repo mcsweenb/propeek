@@ -2,7 +2,7 @@
 <%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
 <% end %>
 
-<form action="/register" id="register_step1">
+<form action="/register" id="register_step1" method="post" class="register_form">
   <section>
     <h2>Account information</h2>
     <fieldset>
@@ -78,7 +78,7 @@
   </section>
   
   <footer>
-    <a href="/register2.html" method="post" class="submit btn-blue">Next</a>	
+    <a href="/register2.html" class="submit btn-blue">Next</a>	
     <div class="clearfix"></div>
   </footer>
 </form>
