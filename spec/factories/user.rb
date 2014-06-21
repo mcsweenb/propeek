@@ -12,11 +12,13 @@ FactoryGirl.define do
     ignore do
       memberships_count 10
       specialities_count 10
+      languages_count 2
     end
     
     after(:create) do |user, evaluator|
       create_list(:membership, evaluator.memberships_count, users: [user])
       create_list(:speciality, evaluator.specialities_count, users: [user])
+      create_list(:language, evaluator.languages_count, users: [user])
     end
   end
 
