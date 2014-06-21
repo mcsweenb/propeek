@@ -6,8 +6,8 @@ class RegisterController < ApplicationController
 
   def step1
     if request.get?
-      if current_user && current_user.email
-        render :step2 
+      if current_user
+        redirect_to self.send("register#{current_user.registration_step_number + 1}_path".to_sym) and return
       else
         @user = User.new
       end
@@ -17,6 +17,7 @@ class RegisterController < ApplicationController
                           permit(:email, :first_name, :last_name, :password, :password_confirmation)
                           )
       if @user.valid?
+        @user.update_attribute(:registration_step_number, 1)
         render :step2
         return
       end
@@ -38,7 +39,7 @@ class RegisterController < ApplicationController
   private
 
   def set_body_class
-    @body_class = 'home'
+    @body_class = 'register'
   end
 
 

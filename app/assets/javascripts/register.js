@@ -12,6 +12,14 @@ var register = (function(){
 		ev.preventDefault();
 		$(".register_form").submit();
 	    });
+	    $(".register_form").on("click", "a.skip", function ( ev ) {
+		ev.preventDefault();
+		document.location = $(this).href;
+	    });
+	    $(".login_form").on("click", "a.previous", function ( ev ) {
+		ev.preventDefault();
+		$(".login_form").submit();
+	    });
 	},
 
 	setup_photo_selector: function () {

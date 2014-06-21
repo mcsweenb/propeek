@@ -48,6 +48,7 @@ RSpec.describe RegisterController, :type => :controller do
         user = assigns(:user)
         puts user.errors.full_messages
         expect(user.email).to match user_attributes[:email]
+        expect(user.registration_step_number).to eq(1)
 
         expect(response).to be_success
         expect(response).to render_template(:step2)
@@ -57,13 +58,12 @@ RSpec.describe RegisterController, :type => :controller do
     context "Already logged in user" do 
       describe "accessing step1" do
         it "should take user to step2" do
-          user = FactoryGirl.create(:user)
+          user = FactoryGirl.create(:user, registration_step_number: 1)
           UserSession.create(user)
 
           get 'step1'
 
-          expect(response).to be_success
-          expect(response).to render_template(:step2)  
+          expect(response).to redirect_to(register2_url)
         end
       end
     end

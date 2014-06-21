@@ -11,6 +11,7 @@
 //=require vendor/jquery.touchSwipe.min.js
 //=require vendor/jquery.carouFredSel.min.js
 //=require vendor/jquery.Jcrop.min.js
+//=require vendor/jquery.tagsinput.min.js
 //= require main
 //= require register
 

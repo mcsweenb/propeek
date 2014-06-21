@@ -36,14 +36,14 @@ RSpec.describe ProfileController, :type => :controller do
       let(:user) {create(:user)}
     
       it "should fail to login" do
-        post 'login', user: {}
+        post 'login', user_session: {}
         
         expect(response).to be_success
         expect(response).to render_template("login")
       end
 
       it "should fail to login" do
-        post 'login', user: {email: user.email, password: 'rubbish'}
+        post 'login', user_session: {email: user.email, password: 'rubbish'}
         
         expect(response).to redirect_to(profile_url)
       end
@@ -53,7 +53,7 @@ RSpec.describe ProfileController, :type => :controller do
       let(:user) {create(:user, password: 'goodpass', password_confirmation: 'goodpass')}
 
       it "should login and show profile" do
-        post 'login', user: {email: user.email, password: 'goodpass'}        
+        post 'login', user_session: {email: user.email, password: 'goodpass'}        
 
         expect(response).to redirect_to(profile_url)
       end
