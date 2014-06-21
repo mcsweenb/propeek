@@ -35,4 +35,11 @@ class RegisterController < ApplicationController
   def step4
   end
 
+  private
+
+  def set_body_class
+    @body_class = 'home'
+  end
+
+
 end

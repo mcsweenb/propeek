@@ -8,7 +8,8 @@
   <fieldset>
     <div class="col-wide">
       <legend>Bio</legend> 
-      <textarea class="bio" rows="4"></textarea>
+      <%#= f.text_area :bio, rows: 4 %>
+      <%#= render :partial => 'error', :locals => {attr: :bio} %>
 
       <legend>Specialties</legend>
       <input id="tags_1" type="text" class="specialties tags" value="foo,bar,baz,roffle" >

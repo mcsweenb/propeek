@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match 'register4' => 'register#step4', :via => [:get, :post], :as => :register4
 
   get 'profile' => 'profile#show', :via => [:get], :as => :profile
+  get 'login' => 'profile#login', :via => [:get, :post], :as => :login
 
   get 'home/index'
 

@@ -5,4 +5,12 @@ class HomeController < ApplicationController
   
   def index
   end
+  
+  private
+
+  def set_body_class
+    @body_class = 'home'
+  end
+
+
 end
