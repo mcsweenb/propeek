@@ -25,6 +25,7 @@ class RegisterController < ApplicationController
   end
 
   def step2
+    @user = current_user
     if request.post?
       current_user.bio = params[:user][:bio]
     end

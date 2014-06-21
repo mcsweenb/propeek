@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
     c.validates_uniqueness_of_email_field_options[:case_sensitive] = false
   end 
+
+  has_and_belongs_to_many :memberships
+  has_and_belongs_to_many :specialities
+
 end

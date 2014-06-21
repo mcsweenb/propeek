@@ -8,5 +8,16 @@ FactoryGirl.define do
     bio Faker::Lorem.paragraphs.first
     linkedin_handle Faker::Lorem.characters(20)
     twitter_handle Faker::Lorem.characters(10)
+
+    ignore do
+      memberships_count 10
+      specialities_count 10
+    end
+    
+    after(:create) do |user, evaluator|
+      create_list(:membership, evaluator.memberships_count, users: [user])
+      create_list(:speciality, evaluator.specialities_count, users: [user])
+    end
   end
+
 end
