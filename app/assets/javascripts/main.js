@@ -108,9 +108,28 @@ $(document).ready(function(){
 		handleFileSelect(e.target.files,$('section.cropper'));
 	});
 	
-	if ($('#tags_1').length) {
-		$('#tags_1').tagsInput({width:'auto',defaultText:'add a specialty',placeholderColor:'#AAAAAA',height:'64px'});
+	if ($('#specialities_tags').length) {
+		$('#specialities_tags').tagsInput({width:'auto',
+						   defaultText:'add a specialty',
+						   placeholderColor:'#AAAAAA',
+						   height:'64px'
+						  });
 	}
+	if ($('#memberships_tags').length) {
+		$('#memberships_tags').tagsInput({width:'auto',
+						  defaultText:'add a membership',
+						  placeholderColor:'#AAAAAA',
+						  height:'64px'
+						 });
+	}
+	if ($('#languages_tags').length) {
+		$('#languages_tags').tagsInput({width:'auto',
+						defaultText:'add a language',
+						placeholderColor:'#AAAAAA',
+						height:'64px'
+					       });
+	}
+
 });
 
 function closeWindow($window) {

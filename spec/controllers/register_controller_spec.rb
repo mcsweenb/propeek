@@ -4,8 +4,8 @@ RSpec.describe RegisterController, :type => :controller do
 
   setup :activate_authlogic
 
-  describe "GET 'step1'" do
-    it "returns http success" do
+  describe "'step1'" do
+    it "GET returns http success" do
       get 'step1'
 
       expect(response).to be_success
@@ -70,14 +70,67 @@ RSpec.describe RegisterController, :type => :controller do
 
   end
 
-  describe "GET 'step2'" do
-    it "returns http success" do
+  describe "'step2'" do
+    it "GET returns http success" do
       user = FactoryGirl.create(:user)
       UserSession.create(user)
 
       get 'step2'
 
       expect(response).to be_success
+    end
+
+    context "Submit step 2 with missing fields" do 
+
+      it "should leave user unchanged" do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)
+
+        post 'step2', user: {}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(2)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step3)
+      end
+    end
+
+    context "Submit step 2 with new valid data" do 
+      it "should update user fields and associations " do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)
+
+        post 'step2', user: {bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3", languages: "l1,l2,l3",
+          licensed_in: "New York", linkedin_handle: "linkedinhandle", twitter_handle: "twitterhandle"}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(2)
+
+        expect(user.bio).to match /test bio/
+
+        expect(user.specialities.count).to eq(3)
+        expect(user.specialities).to include(Speciality.find_by_name(:s1))
+        expect(user.specialities).to include(Speciality.find_by_name(:s2))
+        expect(user.specialities).to include(Speciality.find_by_name(:s3))
+
+        expect(user.memberships.count).to eq(3)
+        expect(user.memberships).to include(Membership.find_by_name(:m1))
+        expect(user.memberships).to include(Membership.find_by_name(:m2))
+        expect(user.memberships).to include(Membership.find_by_name(:m3))
+
+        expect(user.languages.count).to eq(3)
+        expect(user.languages).to include(Language.find_by_name(:l1))
+        expect(user.languages).to include(Language.find_by_name(:l2))
+        expect(user.languages).to include(Language.find_by_name(:l3))
+
+        expect(user.licensed_in).to match /New York/
+        expect(user.linkedin_handle).to match /linkedinhandle/
+        expect(user.twitter_handle).to match /twitterhandle/
+
+        expect(response).to be_success
+        expect(response).to render_template(:step3)
+      end
     end
   end
 

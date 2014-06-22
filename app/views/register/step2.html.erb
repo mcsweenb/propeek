@@ -12,11 +12,11 @@
       <%= render :partial => 'error', :locals => {attr: :bio} %>
 
       <legend>Specialties</legend>
-      <%= f.text_field :specialities, class: "specialities tags", id: :tags_1, value: as_tags_csvs(@user.specialities.to_a) %>
+      <%= f.text_field :specialities, class: "specialities tags", id: :specialities_tags, value: as_tags_csvs(@user.specialities.to_a) %>
       <%= render :partial => 'error', :locals => {attr: :specialities} %>
 
       <legend>Memberships</legend>
-      <%= f.text_field :memberships, class: "memberships tags", id: :tags_2, value: as_tags_csvs(@user.memberships.to_a) %>
+      <%= f.text_field :memberships, class: "memberships tags", id: :memberships_tags, value: as_tags_csvs(@user.memberships.to_a) %>
       <%= render :partial => 'error', :locals => {attr: :memberships} %>
 
       <legend>Licensed in</legend>
@@ -24,7 +24,7 @@
       <%= render :partial => 'error', :locals => {attr: :licensed_in} %>
 
       <legend>Languages</legend>
-      <%= f.text_field :languages, class: "languages tags", id: :tags_2, value: as_tags_csvs(@user.languages.to_a) %>
+      <%= f.text_field :languages, class: "languages tags", id: :languages_tags, value: as_tags_csvs(@user.languages.to_a) %>
       <%= render :partial => 'error', :locals => {attr: :languages} %>
 	
       <div class="col1">

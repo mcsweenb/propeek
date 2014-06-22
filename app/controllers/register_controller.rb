@@ -28,6 +28,18 @@ class RegisterController < ApplicationController
     @user = current_user
     if request.post?
       current_user.bio = params[:user][:bio]
+      current_user.update_list(Speciality, params[:user][:specialities])
+      current_user.update_list(Membership, params[:user][:memberships])
+      current_user.update_list(Language, params[:user][:languages])
+      current_user.licensed_in = params[:user][:licensed_in]      
+      current_user.linkedin_handle = params[:user][:linkedin_handle]      
+      current_user.twitter_handle = params[:user][:twitter_handle]      
+
+      if current_user.save
+        @user.update_attribute(:registration_step_number, 2)
+        render :step3
+        return
+      end
     end
   end
 

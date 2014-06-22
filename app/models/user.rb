@@ -20,4 +20,15 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :specialities
   has_and_belongs_to_many :languages
 
+  def update_list(collection_class, params_list)
+    unless params_list.blank?
+      new_list = params_list.split(",").collect do |given|
+        collection_class.find_or_create_by(name: given)
+      end
+      unless new_list.blank?
+        self.send("#{collection_class.name.downcase.pluralize}=", new_list)    
+      end
+    end
+  end
+
 end
