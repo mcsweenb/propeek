@@ -14,7 +14,7 @@ var register = (function(){
 	    });
 	    $(".register_form").on("click", "a.skip", function ( ev ) {
 		ev.preventDefault();
-		document.location = $(this).href;
+		document.location = $(this).attr('href');
 	    });
 	    $(".login_form").on("click", "a.previous", function ( ev ) {
 		ev.preventDefault();
