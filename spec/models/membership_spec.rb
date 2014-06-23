@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Membership, :type => :model do
 
-  describe "memberships" do
+  describe "validations" do
+    it { is_expected.to ensure_length_of(:name).is_at_most(255) }
+  end
+
+  describe "create and update" do
     let(:user) { create(:user, memberships_count: 5) }
 
     it "should be created from factories" do 
