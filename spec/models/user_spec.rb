@@ -9,6 +9,19 @@ RSpec.describe User, :type => :model do
     it { is_expected.to ensure_length_of(:linkedin_handle).is_at_least(5).is_at_most(30) }
     it { is_expected.to ensure_length_of(:twitter_handle).is_at_most(15) }
     it { is_expected.to ensure_length_of(:licensed_in).is_at_most(255) }
+
+    it { is_expected.to ensure_length_of(:company_name).is_at_most(128) }
+    it { is_expected.to ensure_length_of(:company_address).is_at_most(255) }
+    it { is_expected.to ensure_length_of(:job_title).is_at_most(128) }
+
+    it { is_expected.to ensure_length_of(:phone_1).is_at_most(3) }
+    it { is_expected.to ensure_length_of(:phone_2).is_at_most(3) }
+    it { is_expected.to ensure_length_of(:phone_3).is_at_most(4) }
+
+    it { is_expected.to ensure_length_of(:address_1).is_at_most(128) }
+    it { is_expected.to ensure_length_of(:address_2).is_at_most(128) }
+    it { is_expected.to ensure_length_of(:address_3).is_at_most(128) }
+
   end
 
   describe "email uniqueness" do

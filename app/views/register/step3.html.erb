@@ -1,2 +1,104 @@
-<h1>Register#step3</h1>
-<p>Find me in app/views/register/step3.html.erb</p>
+<% content_for :register_breadcrumbs do %>
+<%= render :partial => "register/breadcrumbs", :locals => {step_no: 3} %>
+<% end %>
+
+<%= form_for :user, url: '/register3', html: {class: 'register_form'} do |f| %>
+<section>
+  <h2>Information about your firm</h2>
+  <fieldset>
+    <div class="col-wide">
+      <legend>Company name</legend> 
+      <%= f.text_field :company_name %>
+      <%= render :partial => 'error', :locals => {attr: :comoany_name} %>
+
+      <legend>Company website</legend>
+      <%= f.text_field :company_website %>
+      <%= render :partial => 'error', :locals => {attr: :comoany_website} %>
+
+      <legend>Your job title</legend>
+      <%= f.text_field :job_title %>
+      <%= render :partial => 'error', :locals => {attr: :job_title} %>
+
+      <legend>Phone number</legend>
+      <div class="phone">
+	<b>1</b>
+        <%= f.text_field :phone_1, maxlength: 3 %>
+        <%= render :partial => 'error', :locals => {attr: :phone_1} %>
+        <b>&ndash;</b>
+        <%= f.text_field :phone_2, maxlength: 3 %>
+        <%= render :partial => 'error', :locals => {attr: :phone_2} %>
+        <b>&ndash;</b>
+        <%= f.text_field :phone_3, maxlength: 4 %>
+        <%= render :partial => 'error', :locals => {attr: :phone_3} %>
+	<div class="clearfix"></div>
+      </div>
+      
+      <div class="col1">
+	<legend>Address 1</legend>
+        <%= f.text_field :address_1 %>
+        <%= render :partial => 'error', :locals => {attr: :address_1} %>
+      </div>
+      <div class="col2">
+	<legend>Address 2</legend>
+        <%= f.text_field :address_2 %>
+        <%= render :partial => 'error', :locals => {attr: :address_2} %>
+      </div>
+      <div class="col1">
+	<legend>City</legend>
+        <%= f.text_field :city %>
+        <%= render :partial => 'error', :locals => {attr: :city} %>
+      </div>
+      <div class="col2-1">
+	<legend>State</legend>
+        <%= f.text_field :state %>
+        <%= render :partial => 'error', :locals => {attr: :state} %>
+      </div>
+      <div class="col2-2">
+	<legend>Zip</legend>
+        <%= f.text_field :zip %>
+        <%= render :partial => 'error', :locals => {attr: :zip} %>
+      </div>
+    </div>
+    
+  </fieldset>
+</section>
+
+<section>
+  <h2>Your fee structure</h2>
+  <span class="extra-info">Please fill in at least one of the following fields</span>
+  <fieldset>
+    <div class="col-wide">
+      <div class="col1">
+	<legend>Minimum hourly rate</legend>
+        <%= f.text_field :min_hourly %>
+        <%= render :partial => 'error', :locals => {attr: :min_hourly} %>
+      </div>
+      <div class="col2">
+	<legend>Maximum hourly rate</legend>
+        <%= f.text_field :max_hourly %>
+        <%= render :partial => 'error', :locals => {attr: :max_hourly} %>
+      </div>
+      <div class="col1">
+	<legend>Minimum daily rate</legend>
+        <%= f.text_field :min_daily %>
+        <%= render :partial => 'error', :locals => {attr: :min_daily} %>
+      </div>
+      <div class="col2">
+	<legend>Maximum daily rate</legend>
+        <%= f.text_field :max_daily %>
+        <%= render :partial => 'error', :locals => {attr: :max_daily} %>
+      </div>
+      <legend>Other notes about fees</legend>
+        <%= f.text_area :fee_notes %>
+        <%= render :partial => 'error', :locals => {attr: :fee_notes} %>
+    </div>
+  </fieldset>
+</section>
+
+<footer>
+  <a href="/register2.html" class="previous btn-gray-med">Previous</a>
+  <a href="/register4.html" class="submit btn-blue">Next</a>
+  <a href="/register4.html" class="skip btn-gray-med">Skip this step</a>
+  <div class="clearfix"></div>
+</footer>
+<% end %>

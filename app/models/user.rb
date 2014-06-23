@@ -11,6 +11,40 @@ class User < ActiveRecord::Base
   validates :twitter_handle, length: {maximum: 15, allow_nil: true}
   validates :bio, length: {maximum: 255, allow_nil: true}
 
+  validates :company_name, length: {maximum: 128, allow_nil: true}
+  validates :company_website, length: {maximum: 255, allow_nil: true}
+  validates :job_title, length: {maximum: 128, allow_nil: true}
+
+  validates :phone_1, length: {maximum: 3, allow_nil: true}
+  validates :phone_2, length: {maximum: 3, allow_nil: true}
+  validates :phone_3, length: {maximum: 4, allow_nil: true}
+
+
+  validates :address_1, length: {maximum: 128, allow_nil: true}
+  validates :address_2, length: {maximum: 128, allow_nil: true}
+  validates :city, length: {maximum: 128, allow_nil: true}
+  validates :state, length: {maximum: 15, allow_nil: true}
+  validates :zip, length: {maximum: 32, allow_nil: true}
+
+
+  monetize :min_hourly_cents, allow_nil: true,
+  :numericality => {
+    :greater_than_or_equal_to => 0,
+  }
+  monetize :max_hourly_cents, allow_nil: true,
+  :numericality => {
+    :greater_than_or_equal_to => 0,
+  }
+  monetize :min_daily_cents, allow_nil: true,
+  :numericality => {
+    :greater_than_or_equal_to => 0,
+  }
+  monetize :max_daily_cents, allow_nil: true,
+  :numericality => {
+    :greater_than_or_equal_to => 0,
+  }
+
+
   acts_as_authentic do |c|
    c.validate_email_field = true
     c.login_field = :email

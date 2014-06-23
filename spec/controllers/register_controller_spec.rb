@@ -153,14 +153,96 @@ RSpec.describe RegisterController, :type => :controller do
     end
   end
 
-  describe "GET 'step3'" do
-    it "returns http success" do
-      user = FactoryGirl.create(:user)
-      UserSession.create(user)
+  describe "'step3'" do
+    context "GET" do 
+      it "should return http success" do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)        
 
-      get 'step3'
+        get 'step3'
 
-      expect(response).to be_success
+        expect(response).to be_success
+        assert_select "form.register_form" do
+          assert_select "input[name=?]", "user[company_name]"
+          assert_select "input[name=?]", "user[company_website]"
+          assert_select "input[name=?]", "user[job_title]"
+          assert_select "input[name=?]", "user[phone_1]"
+          assert_select "input[name=?]", "user[phone_2]"
+          assert_select "input[name=?]", "user[phone_3]"
+          assert_select "input[name=?]", "user[address_1]"
+          assert_select "input[name=?]", "user[address_2]"
+          assert_select "input[name=?]", "user[city]"
+          assert_select "input[name=?]", "user[state]"
+          assert_select "input[name=?]", "user[zip]"
+
+          assert_select "input[name=?]", "user[min_hourly]"
+          assert_select "input[name=?]", "user[max_hourly]"
+          assert_select "input[name=?]", "user[min_daily]"
+          assert_select "input[name=?]", "user[max_daily]"
+          assert_select "textarea[name=?]", "user[fee_notes]"
+        end
+      end
+    end
+
+    context "Submit step 3 with missing fields" do 
+
+      it "should leave user unchanged" do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)
+
+        post 'step3', user: {}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(3)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step4)
+      end
+    end
+
+    context "Submit step 3 with new invalid data" do 
+      it "should return with errors " do
+        user = FactoryGirl.create(:user, registration_step_number: 2)
+        UserSession.create(user)
+
+        post 'step3', user: {company_name: "a"*256, company_website: "w"*256, job_title: "j"*256, 
+          phone_1: "11111", phone_2: "11111", phone_3: "11111",
+          address_1: "a"*256, address_2: "a"*256, city: "a"*256,
+          state: "s"*256, zip: "z"*256}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(2)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step3)
+        puts user.errors.full_messages
+        expect(user.errors.size).to eq 11
+        assert_select "div.error span", 11
+      end
+    end
+
+
+    context "Submit step 3 with new valid data" do 
+      it "should update user fields and associations " do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)
+
+        post 'step3', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal", 
+          phone_1: "111", phone_2: "123", phone_3: "1234",
+          address_1: "blah street", address_2: "bleep road", city: "neighbourhood",
+          state: "IL", zip: "676997"}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(3)
+
+        expect(user.company_name).to match /Jackals/
+
+        expect(user.errors.size).to eq 0
+        assert_select "div.error span", 0
+
+        expect(response).to be_success
+        expect(response).to render_template(:step4)
+      end
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621210501) do
+ActiveRecord::Schema.define(version: 20140623204900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,13 +53,13 @@ ActiveRecord::Schema.define(version: 20140621210501) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                                            null: false
-    t.string   "crypted_password",                                 null: false
-    t.string   "password_salt",                                    null: false
-    t.string   "persistence_token",                                null: false
-    t.string   "perishable_token",                                 null: false
-    t.integer  "login_count",                          default: 0, null: false
-    t.integer  "failed_login_count",                   default: 0, null: false
+    t.string   "email",                                                null: false
+    t.string   "crypted_password",                                     null: false
+    t.string   "password_salt",                                        null: false
+    t.string   "persistence_token",                                    null: false
+    t.string   "perishable_token",                                     null: false
+    t.integer  "login_count",                          default: 0,     null: false
+    t.integer  "failed_login_count",                   default: 0,     null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -67,13 +67,33 @@ ActiveRecord::Schema.define(version: 20140621210501) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name",               limit: 128,             null: false
-    t.string   "last_name",                limit: 128,             null: false
+    t.string   "first_name",               limit: 128,                 null: false
+    t.string   "last_name",                limit: 128,                 null: false
     t.string   "bio"
     t.string   "linkedin_handle"
     t.string   "twitter_handle"
     t.integer  "registration_step_number"
     t.string   "licensed_in"
+    t.string   "company_name"
+    t.string   "company_website"
+    t.string   "job_title"
+    t.string   "phone_1"
+    t.string   "phone_2"
+    t.string   "phone_3"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "min_hourly_cents"
+    t.string   "min_hourly_currency",                  default: "USD", null: false
+    t.integer  "max_hourly_cents"
+    t.string   "max_hourly_currency",                  default: "USD", null: false
+    t.integer  "min_daily_cents"
+    t.string   "min_daily_currency",                   default: "USD", null: false
+    t.integer  "max_daily_cents"
+    t.string   "max_daily_currency",                   default: "USD", null: false
+    t.string   "fee_notes"
   end
 
 end

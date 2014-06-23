@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 gem 'authlogic'
 gem 'bcrypt'
+gem 'money-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'

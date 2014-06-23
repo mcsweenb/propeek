@@ -55,6 +55,23 @@ class RegisterController < ApplicationController
   end
 
   def step3
+    @user = current_user
+    if request.post?
+      if @user.update_attributes(params[:user].
+                                 slice(:company_name, :company_website, :job_title, 
+                                       :phone_1, :phone_2, :phone_3, 
+                                       :address_1, :address_2, :city, :state, :zip,
+                                       :min_hourly, :max_hourly, :min_daily, :max_daily).
+                                 permit(:company_name, :company_website, :job_title,
+                                        :phone_1, :phone_2, :phone_3, 
+                                        :address_1, :address_2, :city, :state, :zip,
+                                        :min_hourly, :max_hourly, :min_daily, :max_daily)
+                                 )
+        @user.update_attribute(:registration_step_number, 3)
+        render :step4
+        return
+      end
+    end
   end
 
   def step4
