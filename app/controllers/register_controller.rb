@@ -26,19 +26,30 @@ class RegisterController < ApplicationController
 
   def step2
     @user = current_user
-    if request.post?
-      current_user.bio = params[:user][:bio]
-      current_user.update_list(Speciality, params[:user][:specialities])
-      current_user.update_list(Membership, params[:user][:memberships])
-      current_user.update_list(Language, params[:user][:languages])
-      current_user.licensed_in = params[:user][:licensed_in]      
-      current_user.linkedin_handle = params[:user][:linkedin_handle]      
-      current_user.twitter_handle = params[:user][:twitter_handle]      
+    base_errors = {}
+    if request.post?      
+      @user.bio = params[:user][:bio]
+      unless @user.update_list(Speciality, params[:user][:specialities])
+        base_errors[:specialities] = "too long"
+      end
+      unless @user.update_list(Membership, params[:user][:memberships])
+        base_errors[:memberships] = "too long"
+      end
+      unless @user.update_list(Language, params[:user][:languages])
+        base_errors[:languages] = "too long"
+      end
+      @user.licensed_in = params[:user][:licensed_in]      
+      @user.linkedin_handle = params[:user][:linkedin_handle]      
+      @user.twitter_handle = params[:user][:twitter_handle]      
 
-      if current_user.save
-        @user.update_attribute(:registration_step_number, 2)
-        render :step3
-        return
+      if @user.valid? && base_errors.empty?
+        @user.registration_step_number = 2
+        @user.save
+        render :step3 and return
+      else
+        base_errors.each do |k, e|
+          @user.errors.add(k, e)
+        end
       end
     end
   end
