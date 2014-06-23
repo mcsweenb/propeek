@@ -215,9 +215,7 @@ RSpec.describe RegisterController, :type => :controller do
 
         expect(response).to be_success
         expect(response).to render_template(:step3)
-        puts user.errors.full_messages
         expect(user.errors.size).to eq 11
-        assert_select "div.error span", 11
       end
     end
 
