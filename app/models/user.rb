@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   validates :state, length: {maximum: 15, allow_nil: true}
   validates :zip, length: {maximum: 32, allow_nil: true}
 
-
   monetize :min_hourly_cents, allow_nil: true,
   :numericality => {
     :greater_than_or_equal_to => 0,
@@ -56,6 +55,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :memberships
   has_and_belongs_to_many :specialities
   has_and_belongs_to_many :languages
+
+  has_many :educations, inverse_of: :user
+  accepts_nested_attributes_for :educations
+
+  has_many :experiences, inverse_of: :user
+  accepts_nested_attributes_for :experiences
 
   def update_list(collection_class, params_list)
     unless params_list.blank?
