@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :speciality do
-    name Faker::Lorem.words.join(" ")
+    name { Faker::Lorem.words.join(" ") }
   end
 end
