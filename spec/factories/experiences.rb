@@ -12,8 +12,8 @@ FactoryGirl.define do
     user
 
     before(:create) do |user, e|
-      start_date e.year_for_start.years.ago
-      end_date (e.year_for_start + 1).years.ago
+      user.start_date e.year_for_start.years.ago
+      user.end_date (e.year_for_start + 1).years.ago
     end
   end
 end

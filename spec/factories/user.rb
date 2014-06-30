@@ -5,7 +5,7 @@ FactoryGirl.define do
     password_confirmation 'abcde'
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    bio { Faker::Lorem.paragraphs.first }
+    bio { Faker::Lorem.sentence[0..255] }
     linkedin_handle { Faker::Lorem.characters(20) }
     twitter_handle { Faker::Lorem.characters(10) }
 
