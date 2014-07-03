@@ -75,6 +75,26 @@ class RegisterController < ApplicationController
   end
 
   def step4
+    @user = current_user
+    if request.post?
+
+      permitted = params[:user].permit(educations: [:id, :qualification, :institution, :description, :start_date, :end_date],
+                                       experiences: [:id, :company_name, :company_website, :title, :description, :start_date, :end_date])
+      logger.debug "PERMITTED"
+      logger.debug permitted
+
+       if @user.update_attributes(educations_attributes: permitted[:educations],
+                                  experiences_attributes: permitted[:experiences])
+         @user.update_attribute(:registration_step_number, 3)
+         render :step4
+         return
+       else
+         
+       end
+    else
+      @user.educations.build
+      @user.experiences.build
+    end
   end
 
   private

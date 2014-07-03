@@ -1,5 +1,5 @@
-<% if @user.errors.include? attr %>
+<% if errors.include? attr %>
 <div class="error">
-  <span><%= @user.errors.full_message(attr, @user.errors[attr][0]) %></span>
+  <span><%= errors.full_message(attr, errors[attr][0]) %></span>
 </div>
 <% end %>

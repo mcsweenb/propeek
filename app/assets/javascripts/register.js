@@ -5,6 +5,34 @@ var register = (function(){
 	setup : function () {
 	    register.setup_buttons();
 	    register.setup_photo_selector();
+	    register.setup_repeater();
+	},
+
+	setup_repeater : function () {
+	    $(".add-another a").click(function(e){
+		var last_element, cloned, last_index, add_to, new_index;
+
+		add_to = $(this).parent().siblings(".repeater");
+		last_element = add_to.find("fieldset:last")
+		last_index = last_element.data("index");
+
+		new_index = last_index + 1;
+		cloned = last_element.clone(true);
+
+		cloned.data("index", new_index);
+
+		cloned.find("input, textarea").each(function () {
+		    $(this).attr('name', this.name.replace(/\[\d\]/, "[" + new_index + "]"));
+		    $(this).attr('id', this.id.replace(/_\d/, '_' + new_index));
+		});
+
+		add_to.append(cloned);
+		
+		e.preventDefault();
+		// var html = "<fieldset>"+$(this).parent().parent().find('fieldset').html()+"</fieldset>";
+		// console.log($(this).parent().parent().find('.repeater'));
+		// $(this).parent().parent().find('.repeater').append(html);
+	    });
 	},
 
 	setup_buttons : function () {

@@ -9,23 +9,23 @@
       <div class="col1">
 	<legend>Email*</legend>
         <%= f.text_field :email %>
-        <%= render :partial => 'error', :locals => {attr: :email} %>
+        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :email} %>
 
 	<legend>First name*</legend>
         <%= f.text_field :first_name %>
-        <%= render :partial => 'error', :locals => {attr: :first_name} %>
+        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :first_name} %>
 
 	<legend>Last name*</legend>
         <%= f.text_field :last_name %>
-        <%= render :partial => 'error', :locals => {attr: :last_name} %>
+        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :last_name} %>
 
 	<legend>Password*</legend>
         <%= f.password_field :password %>
-        <%= render :partial => 'error', :locals => {attr: :password} %>
+        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password} %>
 
 	<legend>Confirm password*</legend>
         <%= f.password_field :password_confirmation %>
-        <%= render :partial => 'error', :locals => {attr: :password_confirmation} %>
+        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password_confirmation} %>
 
       </div>
       <div class="col2 profile-photo">

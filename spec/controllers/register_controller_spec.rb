@@ -78,6 +78,7 @@ RSpec.describe RegisterController, :type => :controller do
       get 'step2'
 
       expect(response).to be_success
+      expect(response).to render_template(:step3)
     end
 
     context "Submit step 2 with missing fields" do 
@@ -250,9 +251,30 @@ RSpec.describe RegisterController, :type => :controller do
       UserSession.create(user)
 
       get 'step4'
-
+      
       expect(response).to be_success
-    end
-  end
+      expect(response).to render_template(:step3)
 
+      assert_select "form.register_form" do
+        assert_select "input[name=?]", "user[company_name]"
+        assert_select "input[name=?]", "user[company_website]"
+        assert_select "input[name=?]", "user[job_title]"
+        assert_select "input[name=?]", "user[phone_1]"
+        assert_select "input[name=?]", "user[phone_2]"
+        assert_select "input[name=?]", "user[phone_3]"
+        assert_select "input[name=?]", "user[address_1]"
+        assert_select "input[name=?]", "user[address_2]"
+        assert_select "input[name=?]", "user[city]"
+        assert_select "input[name=?]", "user[state]"
+        assert_select "input[name=?]", "user[zip]"
+        
+        assert_select "input[name=?]", "user[min_hourly]"
+        assert_select "input[name=?]", "user[max_hourly]"
+        assert_select "input[name=?]", "user[min_daily]"
+        assert_select "input[name=?]", "user[max_daily]"
+        assert_select "textarea[name=?]", "user[fee_notes]"
+      end
+    end
+
+  end
 end

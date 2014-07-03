@@ -93,15 +93,15 @@ $(document).ready(function(){
 		e.preventDefault();
 	});
 	
-	//register template
-	$(".add-another a").click(function(e){
+	// //register template
+	// $(".add-another a").click(function(e){
 		
-		var html = "<fieldset>"+$(this).parent().parent().find('fieldset').html()+"</fieldset>";
-		console.log($(this).parent().parent().find('.repeater'));
-		$(this).parent().parent().find('.repeater').append(html);
+	// 	var html = "<fieldset>"+$(this).parent().parent().find('fieldset').html()+"</fieldset>";
+	// 	console.log($(this).parent().parent().find('.repeater'));
+	// 	$(this).parent().parent().find('.repeater').append(html);
 		
-		e.preventDefault();
-	});
+	// 	e.preventDefault();
+	// });
 	
 	$("#files").change(function(e){
 		openWindow($('#crop-photo-holder'));

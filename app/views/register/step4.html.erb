@@ -1,2 +1,93 @@
-<h1>Register#step4</h1>
-<p>Find me in app/views/register/step4.html.erb</p>
+<% content_for :register_breadcrumbs do %>
+<%= render :partial => "register/breadcrumbs", :locals => {step_no: 4} %>
+<% end %>
+
+<%= form_for :user, url: '/register4', html: {class: 'register_form'} do |user_form| %>
+<section class="education-experience">
+  <h2>Education experience</h2>
+  <div class="repeater">
+    <% @user.educations.each_with_index do |education, i| %>
+    <%= user_form.fields_for :educations, education, index: i do |education_form| %>
+    <fieldset data-index=<%=i%>>
+      <div class="col-wide">
+	<legend>Qualification name</legend> 
+        <%= education_form.text_field :qualification %>
+        <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :qualification} %>
+
+	<legend>Education institution</legend>
+        <%= education_form.text_field :institution %>
+        <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :institution} %>
+
+	<div class="col1">
+	  <legend>Start date</legend>
+          <%= education_form.text_field :start_date, placeholder: "MM/YYYY" %>
+          <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :start_date} %>
+	</div>
+	<div class="col2">
+	  <legend>End date</legend>
+          <%= education_form.text_field :end_date, placeholder: "MM/YYYY" %>
+          <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :end_date} %>
+	</div>
+	<legend>Summary description</legend>
+        <%= education_form.text_area :description, rows: 4 %>
+        <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :description} %>
+      </div>
+      <% end %>
+      <% end %>
+    </fieldset>
+  </div>
+  <div class="add-another">
+    <a href="#" class="btn-gray-light">Add another institution</a>
+  </div>
+</section>
+
+
+<section class="professional-experience">
+  <h2>Previous professional experience</h2>
+  <div class="repeater">
+    <% @user.experiences.each_with_index do |experience, i| %>
+    <%= user_form.fields_for :experiences, experience, index: i do |experience_form| %>
+    <fieldset data-index=<%=i%> >
+      <div class="col-wide">
+	<legend>Previous company name</legend> 
+        <%= experience_form.text_field :company_name %>
+        <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :company_name} %>
+
+	<legend>Previous company website</legend>
+        <%= experience_form.text_field :company_website %>
+        <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :company_website} %>
+
+	<legend>Previous job title</legend>
+        <%= experience_form.text_field :title %>
+        <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :title} %>
+
+	<div class="col1">
+	  <legend>Start date</legend>
+          <%= experience_form.text_field :start_date, placeholder: "MM/YYYY" %>
+          <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :start_date} %>
+	</div>
+	<div class="col2">
+	  <legend>End date</legend>
+          <%= experience_form.text_field :end_date, placeholder: "MM/YYYY" %>
+          <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :end_date} %>
+	</div>
+	<legend>Previous job description</legend>
+        <%= experience_form.text_area :description, rows: 4 %>
+        <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :description} %>
+      </div>     
+    </fieldset>
+    <% end %>
+    <% end %>
+  </div>
+  <div class="add-another">
+    <a href="#" class="btn-gray-light">Add another job</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/register2" class="previous btn-gray-med">Previous</a>
+  <a href="#" class="submit btn-blue">Next</a>
+  <a href="/register4" class="skip btn-gray-med">Skip this step</a>
+  <div class="clearfix"></div>
+</footer>
+<% end %>
