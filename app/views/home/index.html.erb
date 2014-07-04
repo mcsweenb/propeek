@@ -18,26 +18,9 @@
 <body class="home">
   <!--[if lt IE 7]>
   <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-  <![endif]-->
+  <![endif]-->  
 
-  <div class="header-container">
-    <header class="wrapper clearfix">
-      <a href="/" class="site-logo"><b>Propeek</b></a>
-      <nav>
-        <ul>
-          <li><a href="#how-works">How it works</a></li>
-        </ul>
-      </nav>
-      <div class="profile-link">
-        <%= link_to :Login, login_url%>
-        <b>or</b> 
-        <%= link_to :Join, register_url, class: :join %>
-      </div>
-      <div class="clearfix"></div>
-      
-    </header>
-    
-  </div>
+  <%= render :partial => "layouts/header" %>
   
   <div class="main-container">
     

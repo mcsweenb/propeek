@@ -28,7 +28,7 @@ $(document).ready(function(){
 	//star ratings slider
 	if ($('#raty').length) {
 		$('#raty').raty({
-			path: '_/img/raty',
+			path: 'assets/raty/',
 			width: '250px'
 		});
 	}

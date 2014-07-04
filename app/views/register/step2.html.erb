@@ -1,51 +1,54 @@
-<% content_for :register_breadcrumbs do %>
-<%= render :partial => "register/breadcrumbs", :locals => {step_no: 2} %>
-<% end %>
+<div class="main-container gray-container">  
+  <div class="main wrapper clearfix">
+    <%= render :partial => "register/breadcrumbs", :locals => {step_no: 2} %>
 
-<%= form_for :user, url: '/register2', html: {class: 'register_form'} do |f| %>
-<section>
-  <h2>Professional information</h2>
-  <fieldset>
-    <div class="col-wide">
-      <legend>Bio</legend> 
-      <%= f.text_area :bio, rows: 4 %>
-      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :bio} %>
+    <%= form_for :user, url: '/register2', html: {class: 'register_form'} do |f| %>
+    <section>
+      <h2>Professional information</h2>
+      <fieldset>
+        <div class="col-wide">
+          <legend>Bio</legend> 
+          <%= f.text_area :bio, rows: 4 %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :bio} %>
 
-      <legend>Specialties</legend>
-      <%= f.text_field :specialities, class: "specialities tags", id: :specialities_tags, value: as_tags_csvs(@user.specialities.to_a) %>
-      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :specialities} %>
+          <legend>Specialties</legend>
+          <%= f.text_field :specialities, class: "specialities tags", id: :specialities_tags, value: as_tags_csvs(@user.specialities.to_a) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :specialities} %>
 
-      <legend>Memberships</legend>
-      <%= f.text_field :memberships, class: "memberships tags", id: :memberships_tags, value: as_tags_csvs(@user.memberships.to_a) %>
-      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :memberships} %>
+          <legend>Memberships</legend>
+          <%= f.text_field :memberships, class: "memberships tags", id: :memberships_tags, value: as_tags_csvs(@user.memberships.to_a) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :memberships} %>
 
-      <legend>Licensed in</legend>
-      <%= f.text_field :licensed_in %>
-      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :licensed_in} %>
+          <legend>Licensed in</legend>
+          <%= f.text_field :licensed_in %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :licensed_in} %>
 
-      <legend>Languages</legend>
-      <%= f.text_field :languages, class: "languages tags", id: :languages_tags, value: as_tags_csvs(@user.languages.to_a) %>
-      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :languages} %>
-	
-      <div class="col1">
-	<legend>LinkedIn</legend>
-        <%= f.text_field :linkedin_handle %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :linkedin_handle} %>
-      </div>
-      <div class="col2">
-	<legend>Twitter</legend>
-        <%= f.text_field :twitter_handle %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :twitter_handle} %>
-      </div>
-    </div>    
-    </fieldset>
-  </section>
-  
-  <footer>
-    <a href="/register" class="previous btn-gray-med">Previous</a>
-    <a href="#" class="submit btn-blue">Next</a>
-    <a href="/register3" class="skip btn-gray-med">Skip this step</a>
-    <div class="clearfix"></div>
-  </footer>
-  
+          <legend>Languages</legend>
+          <%= f.text_field :languages, class: "languages tags", id: :languages_tags, value: as_tags_csvs(@user.languages.to_a) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :languages} %>
+	  
+          <div class="col1">
+	    <legend>LinkedIn</legend>
+            <%= f.text_field :linkedin_handle %>
+            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :linkedin_handle} %>
+          </div>
+          <div class="col2">
+	    <legend>Twitter</legend>
+            <%= f.text_field :twitter_handle %>
+            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :twitter_handle} %>
+          </div>
+        </div>    
+      </fieldset>
+    </section>
+    
+    <footer>
+      <a href="/register" class="previous btn-gray-med">Previous</a>
+      <a href="#" class="submit btn-blue">Next</a>
+      <a href="/register3" class="skip btn-gray-med">Skip this step</a>
+      <div class="clearfix"></div>
+    </footer>
+    
 <% end  %>
+  </div> <!-- #main -->      
+  
+</div> <!-- #main-container -->

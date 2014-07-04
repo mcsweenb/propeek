@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   match 'register3' => 'register#step3', :via => [:get, :post], :as => :register3
   match 'register4' => 'register#step4', :via => [:get, :post], :as => :register4
 
-  get 'profile/(:username)' => 'profile#show', :via => [:get], :as => :profile
+  get 'profile/(:id)' => 'profile#show', :via => [:get], :as => :profile
   match 'login' => 'profile#login', :via => [:get, :post], :as => :login
   get 'logout' => 'profile#logout', :as => :logout
 

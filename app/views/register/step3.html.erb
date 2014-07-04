@@ -1,6 +1,6 @@
-<% content_for :register_breadcrumbs do %>
-<%= render :partial => "register/breadcrumbs", :locals => {step_no: 3} %>
-<% end %>
+<div class="main-container gray-container">  
+  <div class="main wrapper clearfix">
+    <%= render :partial => "register/breadcrumbs", :locals => {step_no: 3} %>
 
 <%= form_for :user, url: '/register3', html: {class: 'register_form'} do |f| %>
 <section>
@@ -102,3 +102,6 @@
   <div class="clearfix"></div>
 </footer>
 <% end %>
+  </div> <!-- #main -->      
+  
+</div> <!-- #main-container -->

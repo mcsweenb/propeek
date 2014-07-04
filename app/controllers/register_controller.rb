@@ -2,8 +2,6 @@ class RegisterController < ApplicationController
 
   before_filter :require_user, :except => [:step1]
 
-  layout 'register'
-
   def step1
     if request.get?
       if current_user

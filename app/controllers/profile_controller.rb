@@ -4,6 +4,22 @@ class ProfileController < ApplicationController
   before_filter :require_user, :only => [:show]
 
   def show
+    @body_class = 'profile'
+    if params.include?(:id)
+      @user = User.find_by_id(params[:id])
+      if @user          
+        render template: "profile/public" and return
+      else
+        redirect_to root_url, notice: "No such profile" and return
+      end
+    else
+      if current_user
+        @user = current_user
+        render template: "profile/show" and return
+      else
+        redirect_to root_url, notice: "No such profile" and return        
+      end
+    end
   end
 
   def login
@@ -27,7 +43,6 @@ class ProfileController < ApplicationController
     else
       @user_session = UserSession.new
     end
-    render :layout => 'register'
   end
 
   def logout

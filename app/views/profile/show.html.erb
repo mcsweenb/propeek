@@ -1,2 +1,328 @@
-<h1>Profile#show</h1>
-<p>Find me in app/views/profile/show.html.erb</p>
+<div class="main-container">
+  
+  <div class="profile-top-holder">
+    <div class="inner">
+      
+      <div class="profile-image" style="background:url(<%=image_url 'content/prof-detail.jpg' %>) no-repeat; background-size: contain;" ></div>
+      <div class="col">
+      	<h1><%= @user.fullname %></h1>
+      	<h2>Private Investigator [TODO]</h2>
+      	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
+	<div class="address">
+	  <a class="website" href="#"><%= @user.company_name%><b class="external-link"></b></a>
+	  <span class="street"><%= @user.company_address%></span>
+          <a class="map-link" href="https://www.google.com/maps/preview#!q=Flatiron+Building%2C+5th+Avenue%2C+New+York%2C+NY&data=!4m15!2m14!1m13!1s0x89c259a3f71c1f67%3A0xde2a6125ed704926!3m8!1m3!1d403324!2d-73.979681!3d40.6974881!3m2!1i997!2i800!4f13.1!4m2!3d40.741026!4d-73.989781">Map</a>
+	</div>
+	<div class="social">
+	  <ul>
+	    <li class="linkedin"><a href="http://linkedin.com/<%=@user.linkedin_handle%>"><b>LinkedIn Profile</b></a></li>
+	    <li class="twitter"><a href="http://twitter.com/<%=@user.twitter_handle%>"><b>Twitter Profile</b></a></li>
+	  </ul>
+	</div>
+	
+      </div>
+      
+    </div> <!-- end inner -->
+    
+    <div class="tab-bar">
+      <ul>
+      	<li class="active"><a href="#">Profile</a></li>
+      	<li><a href="#">Reviews</a></li>
+      	<div class="clearfix"></div>
+      </ul>
+    </div>
+    
+    <div class="map-holder">
+      <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=<%=Rails.application.config.gmaps_key%>&q=<%=@user.company_address%>"> </iframe>
+    </div>
+  </div>
+  <div class="tab-content tab0">
+    <div class="main wrapper clearfix">
+      
+      <article class="profile-details">
+        <div class="summary detail-box">
+          <h3>Summary</h3>
+          
+          <div class="read-inner">
+            <p><%= @user.bio%></p>
+          </div>
+          
+        </div>
+        
+        <div class="waterfall" >
+	  <div class="detail-box awards">
+	    <div class="box-icon"></div>
+	    <h3>Awards</h3>
+	    
+	    <div class="read-inner">
+	      <section>
+		<p><strong>Award 1</strong><br>Organization Name</p>
+		<p><strong>Award 2</strong><br>Organization Name</p>
+	      </section>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box specialties">
+	    <div class="box-icon"></div>
+	    <h3>Specialties</h3>
+	    
+	    <div class="read-inner">
+	      <section>
+		<ul>
+                  <%= render :partial => "profile/speciality", collection: @user.specialities %>
+		</ul>
+		<div class="clearfix"></div>
+	      </section>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box languages">
+	    <div class="box-icon"></div>
+	    <h3>Languages</h3>
+	    
+	    <div class="read-inner">
+	      <section>
+	        <p><%= @user.languages.map(&:name).join(", ") %></p>
+	      </section>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box memberships">
+	    <div class="box-icon"></div>
+	    <h3>Memberships</h3>
+	    
+	    <div class="read-inner">
+	      <section>
+                <%= render :partial => "profile/membership", collection: @user.memberships %>
+	      </section>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box experience">
+	    <div class="box-icon"></div>
+	    <h3>Previous Experience</h3>
+	    
+	    <div class="read-inner">
+              <%= render :partial => "profile/experience", collection: @user.experiences %>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box fees">
+	    <div class="box-icon"></div>
+	    <h3>Fee Structure</h3>
+	    
+	    <div class="read-inner">
+	      <section>
+		<p><strong>Hourly</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_hourly %>/hr</p>
+		<p><strong>Daily</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_daily %>/day</p>
+	      </section>
+	    </div>
+	    
+	  </div> 
+	  
+	  <div class="detail-box education">
+	    <div class="box-icon"></div>
+	    <h3>Education</h3>
+	    
+	    <div class="read-inner">
+              <%= render :partial => "profile/education", collection: @user.educations %>
+	    </div>
+	    
+	  </div> 
+	  
+        </div> <!-- end waterfall - don't go chasin' them -->
+        
+      </article>
+      
+      <aside class="latest-reviews" >
+        <h3>Latest Reviews</h3>
+        <ul>
+          <li>
+            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb1.jpg"%>) no-repeat; background-size: contain;" ></div>
+            <div class="col">
+              <div class="rating stars-5"></div><span class="date">4/23/13</span>
+              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+          <li>
+            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb2.jpg"%>) no-repeat; background-size: contain;" ></div>
+            <div class="col">
+              <div class="rating stars-4"></div><span class="date">4/23/13</span>
+              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+          <li>
+            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb3.jpg"%>) no-repeat; background-size: contain;" ></div>
+            <div class="col">
+              <div class="rating stars-4"></div><span class="date">4/23/13</span>
+              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+        </ul>
+        <a href="#" class="all-reviews btn-gray-light">Read all reviews<div class="arrow"></div></a>
+      </aside>
+
+    </div> <!-- .main -->
+    
+  </div> <!-- .tab1 -->
+  
+  <div class="tab-content tab1">
+    <div class="main wrapper clearfix">
+      
+      <article class="reviews">
+        <h3>Reviews</h3>
+	<ul>
+          <li>
+            <div class="col col1">
+              <div class="profile-image" style="background:url('_/img/content/comment-thumb1.jpg') no-repeat; background-size: contain;" ></div>
+              <a href="#" class="username">reviewername</a>
+            </div>
+            
+            <div class="col col2">
+              <div class="rating stars-5"></div><span class="date">4/23/13</span>
+              <p class="review">Peter was very professional and solved my case within a matter of hours.</p>
+              <div class="helpful">
+              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+          <li>
+            <div class="col col1">
+              <div class="profile-image" style="background:url('_/img/content/comment-thumb2.jpg') no-repeat; background-size: contain;" ></div>
+              <a href="#" class="username">reviewername</a>
+            </div>
+            
+            <div class="col col2">
+              <div class="rating stars-5"></div><span class="date">4/23/13</span>
+              <p class="review">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed.</p>
+              <div class="helpful">
+              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+          <li>
+            <div class="col col1">
+              <div class="profile-image" style="background:url('_/img/content/comment-thumb3.jpg') no-repeat; background-size: contain;" ></div>
+              <a href="#" class="username">reviewername</a>
+            </div>
+            
+            <div class="col col2">
+              <div class="rating stars-5"></div><span class="date">4/23/13</span>
+              <p class="review">Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
+              <div class="helpful">
+              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+          <li>
+            <div class="col col1">
+              <div class="profile-image" style="background:url('_/img/content/comment-thumb2.jpg') no-repeat; background-size: contain;" ></div>
+              <a href="#" class="username">reviewername</a>
+            </div>
+            
+            <div class="col col2">
+              <div class="rating stars-5"></div><span class="date">4/23/13</span>
+              <p class="review">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed.</p>
+              <div class="helpful">
+              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </li>
+        </ul>
+      </article>
+      
+      <aside >
+        <h3>Review breakdown</h3>
+        
+        <div class="review-breakdown">
+	  <div class="stars"></div>
+	  <table cellpadding="0" cellspacing="0" >
+	    <tr>
+	      <td class="meter"><div class="fill" style="width:70%;"></div></td>
+	      <td class="value"><span>4</span></td>
+	    </tr>
+	    <tr>
+	      <td class="meter"><div class="fill" style="width:80%;"></div></td>
+	      <td class="value"><span>5</span></td>
+	    </tr>
+	    <tr>
+	      <td class="meter"><div class="fill" style="width:50%;"></div></td>
+	      <td class="value"><span>3</span></td>
+	    </tr>
+	    <tr>
+	      <td class="meter"><div class="fill" style="width:10%;"></div></td>
+	      <td class="value"><span>1</span></td>
+	    </tr>
+	    <tr>
+	      <td class="meter"><div class="fill" style="width:20%;"></div></td>
+	      <td class="value"><span>2</span></td>
+	    </tr>
+	  </table>
+	  <div class="clearfix"></div>
+        </div>
+        
+        <div class="review-cta-holder">
+          <h3>Worked with Peter?</h3>
+	  <a href="#" class="btn-orange">Write a review<div class="arrow"></div></a>
+        </div>
+        
+      </aside>
+      
+    </div> <!-- .main -->
+    
+  </div> <!-- .tab2 -->
+  
+</div> <!-- #main-container -->
+
+<div class="footer-container">
+  <footer class="wrapper">
+    <ul class="col1">
+      <li><a href="#">How it works</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">List your business</a></li>
+    </ul>
+    <ul class="col2">
+      <li><a href="#">Terms of use</a></li>
+      <li><a href="#">Privacy policy</a></li>
+    </ul>
+    <div class="clearfix"></div>
+  </footer>
+</div>
+
+<div id="submit-review-holder" class="modal-window-holder">
+  <div class="window">
+    <header>
+      <h3>Submit a review for Peter Michaels</h3>
+      <a href="#" class="close"></a>
+      <div class="clearfix"></div>
+    </header>
+    
+    <section class="rating">
+      <h4>Your review score</h4>
+      <div id="raty"></div>
+    </section>
+    
+    <section class="comment">
+      <textarea rows="6" placeholder="Your review..."></textarea>
+    </section>
+    
+    <section>
+      <a href="#" class="submit btn-blue">Submit</a>
+    </section>
+    
+  </div>
+  <div class="bg"></div>
+</div>
+

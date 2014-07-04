@@ -13,6 +13,8 @@
 //=require vendor/jquery.carouFredSel.min.js
 //=require vendor/jquery.Jcrop.min.js
 //=require vendor/jquery.tagsinput.min.js
+//=require vendor/jquery.raty.min.js
+//=require vendor/jquery.waterfall.js
 //= require main
 //= require register
 

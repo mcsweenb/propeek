@@ -1,111 +1,115 @@
-<% content_for :register_breadcrumbs do %>
-<%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
-<% end %>
-
-<%= form_for :user, url: '/register', html: {class: 'register_form'} do |f| %>
-  <section>
-    <h2>Account information</h2>
-    <fieldset>
-      <div class="col1">
-	<legend>Email*</legend>
-        <%= f.text_field :email %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :email} %>
-
-	<legend>First name*</legend>
-        <%= f.text_field :first_name %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :first_name} %>
-
-	<legend>Last name*</legend>
-        <%= f.text_field :last_name %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :last_name} %>
-
-	<legend>Password*</legend>
-        <%= f.password_field :password %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password} %>
-
-	<legend>Confirm password*</legend>
-        <%= f.password_field :password_confirmation %>
-        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password_confirmation} %>
-
-      </div>
-      <div class="col2 profile-photo">
-	<legend>Profile photo</legend>
-	<div id="photo-drop-zone" class="photo place-holder">
-	  <p>Drag image here<br>or</p>
-	  <!-- <a href="#" class="btn-white-grad">Choose image</a> -->
-	  <input type="file" id="files" accept="image/*" name="files[]" />
-	</div>
-	<p id="status"></p>
-      </div>
-      
-    </fieldset>
-  </section>
-  
-  <section>
-    <h2>Billing information</h2>
-    <fieldset>
-      <div>
-	<legend>Credit card type*</legend>
-	<div class="cc-type">
-	  <input type="radio" name="cc-group" value="Amex"><div class="card-image amex"><b>Amex</b></div>
-	  <input type="radio" name="cc-group" value="Mastercard"><div class="card-image mastercard"><b>Mastercard</b></div>
-	  <input type="radio" name="cc-group" value="Visa"><div class="card-image visa"><b>Visa</b></div>
-	  <input type="radio" name="cc-group" value="Visa"><div class="card-image discover"><b>Discover</b></div>
-	</div>
-	
-	<div class="col">
-	  <legend>Credit card number*</legend>
-	  <input type="text" class="cc-number">
-	</div>
-	<div class="col">
-	  <legend>CCV*</legend>
-	  <input type="text" class="ccv">
-	  <div class="ccv-image card-image"></div>
-	</div>
-	
-	<div class="col clearfix">
-	  <legend>Expiration*</legend>
-	  <input type="text" placeholder="MM" class="cc-month"> / <input type="text" placeholder="YYYY" class="cc-year">
-	</div>
-	<div class="col">
-	  <legend>Billing zipcode*</legend>
-	  <input type="text" class="cc-zip">
-	</div>
-      </div>
-      
-    </fieldset>
-    <div class="promo">
-      <h3>Sign up now&mdash;the first X months are free!</h3>
-      <p>Your card won't be charged until the end of the intro period. If you choose to cancel before then, you won't be charged anything.</p>
-      
-    </div>
-  </section>
-  
-  <footer>
-    <a href="#" class="submit btn-blue">Next</a>	
-    <div class="clearfix"></div>
-  </footer>
-<% end  %>
-
-<% content_for :register_photo do %>
-<div id="crop-photo-holder" class="modal-window-holder">
-  <div class="window">
-    <header>
-      <h3>Crop photo</h3>
-      <a href="#" class="close"></a>
-      <div class="clearfix"></div>
-    </header>
+<div class="main-container gray-container">  
+  <div class="main wrapper clearfix">
     
-    <section class="cropper">
-      
+    <%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
+
+    <%= form_for :user, url: '/register', html: {class: 'register_form'} do |f| %>
+    <section>
+      <h2>Account information</h2>
+      <fieldset>
+        <div class="col1">
+	  <legend>Email*</legend>
+          <%= f.text_field :email %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :email} %>
+          
+	  <legend>First name*</legend>
+          <%= f.text_field :first_name %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :first_name} %>
+          
+	  <legend>Last name*</legend>
+          <%= f.text_field :last_name %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :last_name} %>
+
+	  <legend>Password*</legend>
+          <%= f.password_field :password %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password} %>
+          
+	  <legend>Confirm password*</legend>
+          <%= f.password_field :password_confirmation %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :password_confirmation} %>
+          
+        </div>
+        <div class="col2 profile-photo">
+	  <legend>Profile photo</legend>
+	  <div id="photo-drop-zone" class="photo place-holder">
+	    <p>Drag image here<br>or</p>
+	    <!-- <a href="#" class="btn-white-grad">Choose image</a> -->
+	    <input type="file" id="files" accept="image/*" name="files[]" />
+	  </div>
+	  <p id="status"></p>
+        </div>
+        
+      </fieldset>
     </section>
     
     <section>
-          <a href="#" class="submit btn-blue">Done</a>
+      <h2>Billing information</h2>
+      <fieldset>
+        <div>
+	  <legend>Credit card type*</legend>
+	  <div class="cc-type">
+	    <input type="radio" name="cc-group" value="Amex"><div class="card-image amex"><b>Amex</b></div>
+	    <input type="radio" name="cc-group" value="Mastercard"><div class="card-image mastercard"><b>Mastercard</b></div>
+	    <input type="radio" name="cc-group" value="Visa"><div class="card-image visa"><b>Visa</b></div>
+	    <input type="radio" name="cc-group" value="Visa"><div class="card-image discover"><b>Discover</b></div>
+	  </div>
+	  
+	  <div class="col">
+	    <legend>Credit card number*</legend>
+	    <input type="text" class="cc-number">
+	  </div>
+	  <div class="col">
+	    <legend>CCV*</legend>
+	    <input type="text" class="ccv">
+	    <div class="ccv-image card-image"></div>
+	  </div>
+	  
+	  <div class="col clearfix">
+	    <legend>Expiration*</legend>
+	    <input type="text" placeholder="MM" class="cc-month"> / <input type="text" placeholder="YYYY" class="cc-year">
+	  </div>
+	  <div class="col">
+	    <legend>Billing zipcode*</legend>
+	    <input type="text" class="cc-zip">
+	  </div>
+        </div>
+        
+      </fieldset>
+      <div class="promo">
+        <h3>Sign up now&mdash;the first X months are free!</h3>
+        <p>Your card won't be charged until the end of the intro period. If you choose to cancel before then, you won't be charged anything.</p>
+        
+      </div>
     </section>
     
-  </div>
-  <div class="bg"></div>
-</div>
-<% end %>
+    <footer>
+      <a href="#" class="submit btn-blue">Next</a>	
+      <div class="clearfix"></div>
+    </footer>
+<% end  %>
 
+    <% content_for :register_photo do %>
+    <div id="crop-photo-holder" class="modal-window-holder">
+      <div class="window">
+        <header>
+          <h3>Crop photo</h3>
+          <a href="#" class="close"></a>
+          <div class="clearfix"></div>
+        </header>
+        
+        <section class="cropper">
+          
+        </section>
+        
+        <section>
+          <a href="#" class="submit btn-blue">Done</a>
+        </section>
+        
+      </div>
+      <div class="bg"></div>
+    </div>
+    <% end %>
+
+  </div> <!-- #main -->      
+  
+</div> <!-- #main-container -->

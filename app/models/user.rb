@@ -80,4 +80,12 @@ class User < ActiveRecord::Base
     self.send("#{collection_class.name.downcase.pluralize}")
   end
 
+  def fullname
+    "#{first_name} #{last_name}"
+  end
+
+  def company_address
+    [address_1, address_2, city, state, zip].reject(&:blank?).join(", ")
+  end
+
 end

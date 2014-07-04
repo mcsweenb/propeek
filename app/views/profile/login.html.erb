@@ -1,27 +1,32 @@
-<header class="main">
-  <h1>Login to Propeek</h1>  
-  <div class="clearfix"></div>
-</header>
-<%= form_for @user_session, :url => login_path, html: {class: 'login_form'} do |f| %>
-<section>
-  <fieldset>
-    <div class="col-wide">
+<div class="main-container gray-container">  
+  <div class="main wrapper clearfix">
+    <header class="main">
+      <h1>Login to Propeek</h1>  
+      <div class="clearfix"></div>
+    </header>
+    <%= form_for @user_session, :url => login_path, html: {class: 'login_form'} do |f| %>
+    <section>
+      <fieldset>
+        <div class="col-wide">
 
-      <legend>Username</legend> 
-      <%= f.text_field :email %><br />
+          <legend>Username</legend> 
+          <%= f.text_field :email %><br />
 
-      <legend>Password</legend>
-      <%= f.password_field :password %>
+          <legend>Password</legend>
+          <%= f.password_field :password %>
 
-    </div>
-    
-  </fieldset>
-    
-</section>
+        </div>
+        
+      </fieldset>
+      
+    </section>
 
-<footer>  
-  <a href="#" class="previous btn-blue">Login</a>
-  <div class="clearfix"></div>
-</footer>
+    <footer>  
+      <a href="#" class="previous btn-blue">Login</a>
+      <div class="clearfix"></div>
+    </footer>
 
 <% end %>
+  </div> <!-- #main -->      
+  
+</div> <!-- #main-container -->
