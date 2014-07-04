@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 //= require jquery
+//= require jquery.ui.datepicker
 //= require jquery_ujs
 
 //=require vendor/modernizr-2.6.2.min.js

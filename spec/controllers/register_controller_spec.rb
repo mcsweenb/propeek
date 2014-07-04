@@ -78,7 +78,7 @@ RSpec.describe RegisterController, :type => :controller do
       get 'step2'
 
       expect(response).to be_success
-      expect(response).to render_template(:step3)
+      expect(response).to render_template(:step2)
     end
 
     context "Submit step 2 with missing fields" do 
@@ -253,26 +253,73 @@ RSpec.describe RegisterController, :type => :controller do
       get 'step4'
       
       expect(response).to be_success
-      expect(response).to render_template(:step3)
-
+      expect(response).to render_template(:step4)
+      
       assert_select "form.register_form" do
-        assert_select "input[name=?]", "user[company_name]"
-        assert_select "input[name=?]", "user[company_website]"
-        assert_select "input[name=?]", "user[job_title]"
-        assert_select "input[name=?]", "user[phone_1]"
-        assert_select "input[name=?]", "user[phone_2]"
-        assert_select "input[name=?]", "user[phone_3]"
-        assert_select "input[name=?]", "user[address_1]"
-        assert_select "input[name=?]", "user[address_2]"
-        assert_select "input[name=?]", "user[city]"
-        assert_select "input[name=?]", "user[state]"
-        assert_select "input[name=?]", "user[zip]"
-        
-        assert_select "input[name=?]", "user[min_hourly]"
-        assert_select "input[name=?]", "user[max_hourly]"
-        assert_select "input[name=?]", "user[min_daily]"
-        assert_select "input[name=?]", "user[max_daily]"
-        assert_select "textarea[name=?]", "user[fee_notes]"
+        assert_select "input[name=?]", "user[educations][0][qualification]"
+        assert_select "input[name=?]", "user[educations][0][institution]"
+        assert_select "input[name=?]", "user[educations][0][start_date]"
+        assert_select "input[name=?]", "user[educations][0][end_date]"
+        assert_select "textarea[name=?]", "user[educations][0][description]"
+
+        assert_select "input[name=?]", "user[experiences][0][company_name]"
+        assert_select "input[name=?]", "user[experiences][0][company_website]"
+        assert_select "input[name=?]", "user[experiences][0][title]"
+        assert_select "input[name=?]", "user[experiences][0][start_date]"
+        assert_select "input[name=?]", "user[experiences][0][end_date]"
+        assert_select "textarea[name=?]", "user[experiences][0][description]"
+      end
+    end
+
+
+    context "Submit step 4 with new invalid data" do 
+      it "should return with errors " do
+        user = FactoryGirl.create(:user, registration_step_number: 3)
+        UserSession.create(user)
+
+        post 'step4', user: {
+          "educations"=>
+          {"0"=>
+            {"qualification"=>"", "institution"=>"", "description"=>"", "start_date"=>"", "end_date"=>""}
+          }, 
+          "experiences"=>
+          {"0"=>
+            {"company_name"=>"", "company_website"=>"", "title"=>"", "description"=>"", "start_date"=>"", "end_date"=>""}
+          }
+        }
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(3)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step4)
+        expect(user.errors.size).to eq 7
+      end
+    end
+
+    context "Submit step 4 with new valid data" do 
+      it "should update user fields and associations " do
+        user = FactoryGirl.create(:user, registration_step_number: 3)
+        UserSession.create(user)
+
+        post 'step4', user: {
+          "educations"=>
+          {"0"=>
+            {"qualification"=>"BA LLC", "institution"=>"Badd Assock", "description"=>"Blasetasdasd", "start_date"=>"07/01/2014", "end_date"=>"2013-07-01"}
+          }, 
+          "experiences"=>
+          {"0"=>
+            {"company_name"=>"sdasd", "company_website"=>"adad", "title"=>"adasdsa", "description"=>"adasdsad", "start_date"=>"2014-01-07", "end_date"=>""}
+          }
+        }
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(4)
+
+        expect(user.errors.size).to eq 0
+        assert_select "div.error span", 0
+
+        expect(response).to redirect_to(profile_url)
       end
     end
 

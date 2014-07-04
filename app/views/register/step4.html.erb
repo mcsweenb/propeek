@@ -10,6 +10,7 @@
     <%= user_form.fields_for :educations, education, index: i do |education_form| %>
     <fieldset data-index=<%=i%>>
       <div class="col-wide">
+        <%= education_form.hidden_field :id %>
 	<legend>Qualification name</legend> 
         <%= education_form.text_field :qualification %>
         <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :qualification} %>
@@ -20,21 +21,21 @@
 
 	<div class="col1">
 	  <legend>Start date</legend>
-          <%= education_form.text_field :start_date, placeholder: "MM/YYYY" %>
+          <%= education_form.text_field :start_date, value: education.start_date.to_s, placeholder: "MM/DD/YYYY", class: :datepicker %>
           <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :start_date} %>
 	</div>
 	<div class="col2">
 	  <legend>End date</legend>
-          <%= education_form.text_field :end_date, placeholder: "MM/YYYY" %>
+          <%= education_form.text_field :end_date, placeholder: "MM/DD/YYYY", class: :datepicker %>
           <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :end_date} %>
 	</div>
 	<legend>Summary description</legend>
         <%= education_form.text_area :description, rows: 4 %>
         <%= render :partial => 'error', :locals => {errors: @user.educations[i].errors, attr: :description} %>
       </div>
-      <% end %>
-      <% end %>
     </fieldset>
+    <% end %>
+    <% end %>
   </div>
   <div class="add-another">
     <a href="#" class="btn-gray-light">Add another institution</a>
@@ -49,6 +50,7 @@
     <%= user_form.fields_for :experiences, experience, index: i do |experience_form| %>
     <fieldset data-index=<%=i%> >
       <div class="col-wide">
+        <%= experience_form.hidden_field :id %>
 	<legend>Previous company name</legend> 
         <%= experience_form.text_field :company_name %>
         <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :company_name} %>
@@ -63,12 +65,12 @@
 
 	<div class="col1">
 	  <legend>Start date</legend>
-          <%= experience_form.text_field :start_date, placeholder: "MM/YYYY" %>
+          <%= experience_form.text_field :start_date, placeholder: "MM/DD/YYYY", class: :datepicker %>
           <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :start_date} %>
 	</div>
 	<div class="col2">
 	  <legend>End date</legend>
-          <%= experience_form.text_field :end_date, placeholder: "MM/YYYY" %>
+          <%= experience_form.text_field :end_date, placeholder: "MM/DD/YYYY", class: :datepicker %>
           <%= render :partial => 'error', :locals => {errors: @user.experiences[i].errors, attr: :end_date} %>
 	</div>
 	<legend>Previous job description</legend>
@@ -87,7 +89,7 @@
 <footer>
   <a href="/register2" class="previous btn-gray-med">Previous</a>
   <a href="#" class="submit btn-blue">Next</a>
-  <a href="/register4" class="skip btn-gray-med">Skip this step</a>
+  <a href="/profile" class="skip btn-gray-med">Skip this step</a>
   <div class="clearfix"></div>
 </footer>
 <% end %>

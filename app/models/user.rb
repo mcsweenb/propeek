@@ -56,10 +56,10 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :specialities
   has_and_belongs_to_many :languages
 
-  has_many :educations, inverse_of: :user
+  has_many :educations, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :educations
 
-  has_many :experiences, inverse_of: :user
+  has_many :experiences, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :experiences
 
   def update_list(collection_class, params_list)

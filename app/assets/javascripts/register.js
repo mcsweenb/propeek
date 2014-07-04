@@ -6,6 +6,17 @@ var register = (function(){
 	    register.setup_buttons();
 	    register.setup_photo_selector();
 	    register.setup_repeater();
+	    register.setup_datepicker();
+	},
+
+	setup_datepicker : function () {
+	    $(".datepicker").datepicker({ 
+		dateFormat: "mm/dd/yy",
+		showAnim: "slideDown",
+		changeMonth: true,
+		changeYear: true,
+		yearRange: "c-50:c"
+	    });
 	},
 
 	setup_repeater : function () {
@@ -17,16 +28,22 @@ var register = (function(){
 		last_index = last_element.data("index");
 
 		new_index = last_index + 1;
-		cloned = last_element.clone(true);
+		$(".datepicker").datepicker("destroy");
+		cloned = last_element.clone();
 
 		cloned.data("index", new_index);
 
 		cloned.find("input, textarea").each(function () {
 		    $(this).attr('name', this.name.replace(/\[\d\]/, "[" + new_index + "]"));
-		    $(this).attr('id', this.id.replace(/_\d/, '_' + new_index));
+		    if ( $(this).attr('id').match(/\[id\]/) ) {
+		    } else {
+			$(this).attr('id', this.id.replace(/_\d/, '_' + new_index));
+		    }
+		    $(this).val('');
 		});
 
 		add_to.append(cloned);
+		$(".datepicker").datepicker();
 		
 		e.preventDefault();
 		// var html = "<fieldset>"+$(this).parent().parent().find('fieldset').html()+"</fieldset>";
