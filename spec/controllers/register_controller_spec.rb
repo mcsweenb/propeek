@@ -241,6 +241,9 @@ RSpec.describe RegisterController, :type => :controller do
 
         expect(response).to be_success
         expect(response).to render_template(:step4)
+        
+        expect(assigns[:user].educations).to_not be_empty
+        expect(assigns[:user].experiences).to_not be_empty
       end
     end
   end

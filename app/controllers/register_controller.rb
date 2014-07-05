@@ -66,6 +66,8 @@ class RegisterController < ApplicationController
                                         :min_hourly, :max_hourly, :min_daily, :max_daily)
                                  )
         @user.update_attribute(:registration_step_number, 3)
+        @user.educations.build
+        @user.experiences.build
         render :step4
         return
       end
