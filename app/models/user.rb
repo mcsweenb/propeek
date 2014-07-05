@@ -62,6 +62,12 @@ class User < ActiveRecord::Base
   has_many :experiences, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :experiences
 
+  has_many :reviews_received, foreign_key: :review_for, class_name: 'Review'
+  has_many :reviews_received_from, through: :reviews_received, source: :reviews_by
+
+  has_many :reviews_given, foreign_key: :review_by, class_name: 'Review'
+  has_many :reviews_given_to, through: :reviews_given, source: :reviews_for
+
   def update_list(collection_class, params_list)
     unless params_list.blank?
       new_list = params_list.split(",").collect do |given|
