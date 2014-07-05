@@ -7,9 +7,9 @@ RSpec.describe ProfileController, :type => :controller do
   describe "GET 'show'" do
     it "returns http success" do
       user = FactoryGirl.create(:user)
-      UserSession.create(user)
+      session = UserSession.create(user)
 
-      get 'show'
+      get 'show', user_id: user.id
 
       expect(response).to be_success
       expect(response).to render_template("show")
@@ -45,17 +45,18 @@ RSpec.describe ProfileController, :type => :controller do
       it "should fail to login" do
         post 'login', user_session: {email: user.email, password: 'rubbish'}
         
-        expect(response).to redirect_to(profile_url)
+        expect(response).to be_success
+        expect(response).to render_template("login")
       end
     end
 
-    context "wiht correct credentials" do
+    context "with correct credentials" do
       let(:user) {create(:user, password: 'goodpass', password_confirmation: 'goodpass')}
 
       it "should login and show profile" do
         post 'login', user_session: {email: user.email, password: 'goodpass'}        
 
-        expect(response).to redirect_to(profile_url)
+        expect(response).to redirect_to(register_url)
       end
     end
   end

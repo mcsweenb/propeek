@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
-  get 'profile/show'
+  post 'profile/:for_user_id/review' => "profile#create_review", :as => :create_review
 
   match 'register' => 'register#step1', :via => [:get, :post], :as => :register
   match 'register2' => 'register#step2', :via => [:get, :post], :as => :register2
   match 'register3' => 'register#step3', :via => [:get, :post], :as => :register3
   match 'register4' => 'register#step4', :via => [:get, :post], :as => :register4
 
-  get 'profile/(:id)' => 'profile#show', :via => [:get], :as => :profile
+  get 'profile/:user_id' => 'profile#show', :via => [:get], :as => :profile
   match 'login' => 'profile#login', :via => [:get, :post], :as => :login
   get 'logout' => 'profile#logout', :as => :logout
 

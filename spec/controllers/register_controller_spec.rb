@@ -319,7 +319,7 @@ RSpec.describe RegisterController, :type => :controller do
         expect(user.errors.size).to eq 0
         assert_select "div.error span", 0
 
-        expect(response).to redirect_to(profile_url)
+        expect(response).to redirect_to(profile_url(user))
       end
     end
 

@@ -142,30 +142,7 @@
       <aside class="latest-reviews" >
         <h3>Latest Reviews</h3>
         <ul>
-          <li>
-            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb1.jpg"%>) no-repeat; background-size: contain;" ></div>
-            <div class="col">
-              <div class="rating stars-5"></div><span class="date">4/23/13</span>
-              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
-            </div>
-            <div class="clearfix"></div>
-          </li>
-          <li>
-            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb2.jpg"%>) no-repeat; background-size: contain;" ></div>
-            <div class="col">
-              <div class="rating stars-4"></div><span class="date">4/23/13</span>
-              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
-            </div>
-            <div class="clearfix"></div>
-          </li>
-          <li>
-            <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb3.jpg"%>) no-repeat; background-size: contain;" ></div>
-            <div class="col">
-              <div class="rating stars-4"></div><span class="date">4/23/13</span>
-              <p class="excerpt">Peter was very professional and solved my case within a matter of hours...<a href="#">Read more</a>
-            </div>
-            <div class="clearfix"></div>
-          </li>
+          <%= render partial: "profile/review_excerpt", collection: @user.reviews_received.limit(3) %>
         </ul>
         <a href="#" class="all-reviews btn-gray-light">Read all reviews<div class="arrow"></div></a>
       </aside>
@@ -180,66 +157,7 @@
       <article class="reviews">
         <h3>Reviews</h3>
 	<ul>
-          <li>
-            <div class="col col1">
-              <div class="profile-image" style="background:url('_/img/content/comment-thumb1.jpg') no-repeat; background-size: contain;" ></div>
-              <a href="#" class="username">reviewername</a>
-            </div>
-            
-            <div class="col col2">
-              <div class="rating stars-5"></div><span class="date">4/23/13</span>
-              <p class="review">Peter was very professional and solved my case within a matter of hours.</p>
-              <div class="helpful">
-              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </li>
-          <li>
-            <div class="col col1">
-              <div class="profile-image" style="background:url('_/img/content/comment-thumb2.jpg') no-repeat; background-size: contain;" ></div>
-              <a href="#" class="username">reviewername</a>
-            </div>
-            
-            <div class="col col2">
-              <div class="rating stars-5"></div><span class="date">4/23/13</span>
-              <p class="review">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed.</p>
-              <div class="helpful">
-              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </li>
-          <li>
-            <div class="col col1">
-              <div class="profile-image" style="background:url('_/img/content/comment-thumb3.jpg') no-repeat; background-size: contain;" ></div>
-              <a href="#" class="username">reviewername</a>
-            </div>
-            
-            <div class="col col2">
-              <div class="rating stars-5"></div><span class="date">4/23/13</span>
-              <p class="review">Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
-              <div class="helpful">
-              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </li>
-          <li>
-            <div class="col col1">
-              <div class="profile-image" style="background:url('_/img/content/comment-thumb2.jpg') no-repeat; background-size: contain;" ></div>
-              <a href="#" class="username">reviewername</a>
-            </div>
-            
-            <div class="col col2">
-              <div class="rating stars-5"></div><span class="date">4/23/13</span>
-              <p class="review">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed.</p>
-              <div class="helpful">
-              	<span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </li>
+          <%= render partial: "profile/review", collection: @user.reviews_received %>
         </ul>
       </article>
       
@@ -274,7 +192,7 @@
         </div>
         
         <div class="review-cta-holder">
-          <h3>Worked with Peter?</h3>
+          <h3>Worked with <%= @user.first_name %>?</h3>
 	  <a href="#" class="btn-orange">Write a review<div class="arrow"></div></a>
         </div>
         
@@ -304,23 +222,25 @@
 <div id="submit-review-holder" class="modal-window-holder">
   <div class="window">
     <header>
-      <h3>Submit a review for Peter Michaels</h3>
+      <h3>Submit a review for <%= @user.fullname %></h3>
       <a href="#" class="close"></a>
       <div class="clearfix"></div>
     </header>
-    
+
+    <%= form_tag create_review_url(@user), id: "review-form" do %>
     <section class="rating">
       <h4>Your review score</h4>
       <div id="raty"></div>
     </section>
     
     <section class="comment">
-      <textarea rows="6" placeholder="Your review..."></textarea>
+      <%= text_area_tag :review, '', rows: 6, placeholder: "Your review..."%>
     </section>
     
     <section>
       <a href="#" class="submit btn-blue">Submit</a>
     </section>
+    <% end %>
     
   </div>
   <div class="bg"></div>

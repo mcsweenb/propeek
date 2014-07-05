@@ -1,0 +1,15 @@
+<li>
+  <div class="col col1">
+    <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb1.jpg"%>) no-repeat; background-size: contain;" ></div>
+    <a href="#" class="username"><%= review.reviewer_name %></a>
+  </div>
+  
+  <div class="col col2">
+    <div class="rating stars-<%= review.rating %>"></div><span class="date"><%= review.created_at %></span>
+    <p class="review"><%= review.review %></p>
+    <div class="helpful">
+      <span class="label">Was this review helpful?</span> <a href="#" class="yes">Yes</a> <a href="#" class="no">No</a>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</li>

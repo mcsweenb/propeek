@@ -17,4 +17,5 @@
 //=require vendor/jquery.waterfall.js
 //= require main
 //= require register
+//= require review
 

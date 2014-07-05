@@ -81,7 +81,7 @@ class RegisterController < ApplicationController
       if @user.update_attributes(educations_attributes: permitted[:educations],
                                  experiences_attributes: permitted[:experiences])
         @user.update_attribute(:registration_step_number, 4)
-        redirect_to profile_url
+        redirect_to profile_url(@user)
         return
        else
         

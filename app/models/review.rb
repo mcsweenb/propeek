@@ -14,4 +14,8 @@ class Review < ActiveRecord::Base
   belongs_to :review_for, foreign_key: :review_for_id, class_name: 'User'
   belongs_to :review_by, foreign_key: :review_by_id, class_name: 'User'
 
+  def reviewer_name
+    review_by.blank? ? "Anonymous reviewer" : review_by.fullname
+  end
+
 end

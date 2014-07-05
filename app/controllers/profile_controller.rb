@@ -1,21 +1,38 @@
 class ProfileController < ApplicationController
 
-  before_filter :require_no_user, :only => [:login]
-  before_filter :require_user, :only => [:show]
+#   before_filter :require_no_user, :only => [:login]
+
+  def create_review
+    params.permit(:score, :review)
+
+    @user = User.find_by_id(params[:for_user_id])
+    if @user
+      @review = @user.reviews_received.build(rating: params[:score], review: params[:review], review_by: current_user)
+      if @review.save
+        flash[:notice] = "Review saved"
+      else
+        flash[:notice] = @review.errors.full_messages
+      end
+    else
+      flash[:notice] = "Bad request. No profile selected."
+      redirect_to root_url and return
+    end
+    redirect_to profile_url(@user)
+  end
 
   def show
     @body_class = 'profile'
-    if params.include?(:id)
-      @user = User.find_by_id(params[:id])
+    if params.include?(:user_id)
+      @user = User.find_by_id(params[:user_id])
       if @user          
-        render template: "profile/public" and return
+        return
       else
         redirect_to root_url, notice: "No such profile" and return
       end
     else
       if current_user
         @user = current_user
-        render template: "profile/show" and return
+        return
       else
         redirect_to root_url, notice: "No such profile" and return        
       end
@@ -35,7 +52,7 @@ class ProfileController < ApplicationController
         when 3
           redirect_to register4_url and return
         when 4
-          redirect_to profile_url and return
+          redirect_to profile_url(current_user) and return
         else
           redirect_to register_url and return
         end
@@ -49,9 +66,9 @@ class ProfileController < ApplicationController
     UserSession.find.destroy
     redirect_to root_url
   end
-
+  
   def set_body_class
     @body_class = 'profile'
   end
-
+  
 end
