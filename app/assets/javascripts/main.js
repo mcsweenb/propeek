@@ -104,8 +104,11 @@ $(document).ready(function(){
 	// });
 	
 	$("#files").change(function(e){
-		openWindow($('#crop-photo-holder'));
-		handleFileSelect(e.target.files,$('section.cropper'));
+	    openWindow($('#crop-photo-holder'));
+	    handleFileSelect(e.target.files,$('section.cropper'));
+	    $("#crop-photo-holder").on("click", ".submit", function () {
+		$("#crop-photo-holder").hide();
+	    });
 	});
 	
 	if ($('#specialities_tags').length) {
