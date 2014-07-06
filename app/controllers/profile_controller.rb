@@ -2,6 +2,8 @@ class ProfileController < ApplicationController
 
 #   before_filter :require_no_user, :only => [:login]
 
+  before_filter :require_user, only: [:private]
+
   def create_review
     params.permit(:score, :review)
 
@@ -34,7 +36,10 @@ class ProfileController < ApplicationController
         redirect_to root_url, notice: "No such profile" and return        
       end
     end
-    @review_breakdown = @user.review_breakdown
+  end
+
+  def private
+    @user = current_user
   end
 
   def login
