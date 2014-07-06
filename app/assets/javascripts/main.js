@@ -201,8 +201,10 @@ function initJcrop()//{{{
 
   // Invoke Jcrop in typical fashion
   $('#crop-target').Jcrop({
-    onRelease: releaseCheck,
-    aspectRatio: 1/1
+      onRelease: releaseCheck,
+      aspectRatio: 1/1,
+      onChange: showPreview,
+      onSelect: showPreview,
   },function(){
 
     jcrop_api = this;
@@ -211,6 +213,24 @@ function initJcrop()//{{{
   });
 
 };
+
+function showPreview(coords) {
+    var rx = 100 / coords.w;
+    var ry = 100 / coords.h;
+
+    $('#crop_x').val(coords.x);  
+    $('#crop_y').val(coords.y);  
+    $('#crop_w').val(coords.w);  
+    $('#crop_h').val(coords.h); 
+
+    $('#photo-drop-zone').css({
+	width: Math.round(rx * 500) + 'px',
+	height: Math.round(ry * 370) + 'px',
+	marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+	marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+};
+
 function releaseCheck()
 {
   jcrop_api.setOptions({ allowSelect: true });

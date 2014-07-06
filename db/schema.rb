@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705134341) do
+ActiveRecord::Schema.define(version: 20140706153538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,10 @@ ActiveRecord::Schema.define(version: 20140705134341) do
     t.integer  "max_daily_cents"
     t.string   "max_daily_currency",                   default: "USD", null: false
     t.string   "fee_notes"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

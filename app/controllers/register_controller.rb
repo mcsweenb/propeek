@@ -11,8 +11,8 @@ class RegisterController < ApplicationController
       end
     elsif request.post?
       @user = User.create(params[:user].
-                          slice(:email, :first_name, :last_name, :password, :password_confirmation).
-                          permit(:email, :first_name, :last_name, :password, :password_confirmation)
+                          slice(:email, :first_name, :last_name, :password, :password_confirmation, :avatar).
+                          permit(:email, :first_name, :last_name, :password, :password_confirmation, :avatar)
                           )
       if @user.valid?
         @user.update_attribute(:registration_step_number, 1)
@@ -83,7 +83,7 @@ class RegisterController < ApplicationController
       if @user.update_attributes(educations_attributes: permitted[:educations],
                                  experiences_attributes: permitted[:experiences])
         @user.update_attribute(:registration_step_number, 4)        
-        redirect_to profile_url(@user), notice: "Congrats! Your profile was successfully created."
+        redirect_to profile_private_url, notice: "Congrats! Your profile was successfully created."
         return
        else
         

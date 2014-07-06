@@ -3,7 +3,7 @@
     
     <%= render :partial => "register/breadcrumbs", :locals => {step_no: 1} %>
 
-    <%= form_for :user, url: '/register', html: {class: 'register_form'} do |f| %>
+    <%= form_for :user, url: '/register', html: {multipart: true, class: 'register_form'} do |f| %>
     <section>
       <h2>Account information</h2>
       <fieldset>
@@ -31,10 +31,13 @@
         </div>
         <div class="col2 profile-photo">
 	  <legend>Profile photo</legend>
-	  <div id="photo-drop-zone" class="photo place-holder">
+          <div id="photo-drop-zone" class="photo place-holder">
 	    <p>Drag image here<br>or</p>
-	    <!-- <a href="#" class="btn-white-grad">Choose image</a> -->
-	    <input type="file" id="files" accept="image/*" name="files[]" />
+            <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
+              <%= hidden_field_tag attribute, '', :id => attribute %>  
+            <% end %>  
+	    <%= f.file_field :avatar, id: :files %>
+	    <!-- <input type="file" id="files" accept="image/*" name="files[]" /> -->
 	  </div>
 	  <p id="status"></p>
         </div>

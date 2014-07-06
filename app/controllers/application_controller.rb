@@ -7,16 +7,16 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_body_class
 
-  def default_url_options
-    if Rails.env.development?
-      {
-        host: 'dev.propeek.com',
-        port: 80
-      }
-    else
-      {}
-    end
-  end
+  # def default_url_options
+  #   if Rails.env.development?
+  #     {
+  #       host: 'dev.propeek.com',
+  #       port: 80
+  #     }
+  #   else
+  #     {}
+  #   end
+  # end
   
   private
 
