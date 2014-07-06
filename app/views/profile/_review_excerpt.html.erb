@@ -1,5 +1,5 @@
 <li>
-  <div class="profile-image" style="background:url(<%=image_url "content/comment-thumb1.jpg"%>) no-repeat; background-size: contain;" ></div>
+  <div class="profile-image" style="background:url(<%= reviewer_avatar(review_excerpt, :thumb)%>) no-repeat; background-size: contain;" ></div>
   <div class="col">
     <div class="rating stars-<%=review_excerpt.rating%>"></div><span class="date"><%= review_excerpt.created_at %></span>
     <p class="excerpt"><%= truncate(review_excerpt.review, length: 75)%> <a href="#">Read more</a>
