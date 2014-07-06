@@ -82,8 +82,8 @@ class RegisterController < ApplicationController
                                        experiences: [:id, :company_name, :company_website, :title, :description, :start_date, :end_date])
       if @user.update_attributes(educations_attributes: permitted[:educations],
                                  experiences_attributes: permitted[:experiences])
-        @user.update_attribute(:registration_step_number, 4)
-        redirect_to profile_url(@user)
+        @user.update_attribute(:registration_step_number, 4)        
+        redirect_to profile_url(@user), notice: "Congrats! Your profile was successfully created."
         return
        else
         
