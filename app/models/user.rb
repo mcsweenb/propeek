@@ -94,4 +94,19 @@ class User < ActiveRecord::Base
     [address_1, address_2, city, state, zip].reject(&:blank?).join(", ")
   end
 
+  def review_breakdown
+    reviews = reviews_received.select('rating', 'count(*)').group(:rating).reorder(:rating).all
+    total_count = reviews.map(&:count).sum
+    breakdown = []
+    (1..5).each do |i|
+      r = reviews.find {|r| r.rating == i}
+      if r.present?
+        breakdown << [i, r.count, ((r.count.to_f/total_count) * 100).round]
+      else
+        breakdown << [i, 0, 0]
+      end
+    end
+    breakdown.reverse
+  end
+
 end

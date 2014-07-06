@@ -9,9 +9,9 @@ RSpec.describe Review, :type => :model do
     it { is_expected.to validate_numericality_of(:rating).is_less_than_or_equal_to(5) }    
   end
 
-  context "receiving reviews" do 
+  describe "receiving reviews" do 
     let!(:receiver) { create(:user) }
-
+    
     context "from a registered user" do
       let!(:giver) { create(:user) }
 
@@ -45,8 +45,25 @@ RSpec.describe Review, :type => :model do
         expect(receiver.reviews_received.map(&:review_by)).to include(nil)
       end
     end
+  end
 
-
+  describe "reviews breakdown" do    
+    context "for a user" do      
+      let!(:user) { create(:user) }
+        
+      it "should show correct review breakdown" do
+        10.times do |i|
+          user.reviews_received.create(rating: i % 5 + 1, review: "a sample review")
+        end
+        breakdown = user.review_breakdown
+        
+        expect(breakdown).to include([1, 2, 20])
+        expect(breakdown).to include([2, 2, 20])
+        expect(breakdown).to include([3, 2, 20])
+        expect(breakdown).to include([4, 2, 20])
+        expect(breakdown).to include([5, 2, 20])
+      end
+    end    
   end
 
 end

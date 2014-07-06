@@ -24,19 +24,17 @@ class ProfileController < ApplicationController
     @body_class = 'profile'
     if params.include?(:user_id)
       @user = User.find_by_id(params[:user_id])
-      if @user          
-        return
-      else
+      unless @user
         redirect_to root_url, notice: "No such profile" and return
       end
     else
       if current_user
         @user = current_user
-        return
       else
         redirect_to root_url, notice: "No such profile" and return        
       end
     end
+    @review_breakdown = @user.review_breakdown
   end
 
   def login
