@@ -9,7 +9,7 @@
     <% if current_user %>
     <div class="profile-link logged-in">
       <a href="#" class="menu-toggle">
-        <div class="profile-image" style="background:url(<%=image_url 'content/prof-thumb1.jpg' %>) no-repeat; background-size: contain;"></div>
+        <div class="profile-image" style="background:url(<%= current_user.avatar.url(:profile_thumb)%>) no-repeat; background-size: contain;"></div>
         <p>Hi, <%= current_user.first_name %><b></b></p>
       </a>
       <ul class="menu">
