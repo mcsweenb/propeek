@@ -44,46 +44,96 @@
         
       </fieldset>
     </section>
-    
+
     <section>
-      <h2>Billing information</h2>
+      <h2>Professional information</h2>
       <fieldset>
-        <div>
-	  <legend>Credit card type*</legend>
-	  <div class="cc-type">
-	    <input type="radio" name="cc-group" value="Amex"><div class="card-image amex"><b>Amex</b></div>
-	    <input type="radio" name="cc-group" value="Mastercard"><div class="card-image mastercard"><b>Mastercard</b></div>
-	    <input type="radio" name="cc-group" value="Visa"><div class="card-image visa"><b>Visa</b></div>
-	    <input type="radio" name="cc-group" value="Visa"><div class="card-image discover"><b>Discover</b></div>
-	  </div>
-	  
-	  <div class="col">
-	    <legend>Credit card number*</legend>
-	    <input type="text" class="cc-number">
-	  </div>
-	  <div class="col">
-	    <legend>CCV*</legend>
-	    <input type="text" class="ccv">
-	    <div class="ccv-image card-image"></div>
-	  </div>
-	  
-	  <div class="col clearfix">
-	    <legend>Expiration*</legend>
-	    <input type="text" placeholder="MM" class="cc-month"> / <input type="text" placeholder="YYYY" class="cc-year">
-	  </div>
-	  <div class="col">
-	    <legend>Billing zipcode*</legend>
-	    <input type="text" class="cc-zip">
-	  </div>
-        </div>
-        
+        <div class="col-wide">
+          <legend>Bio</legend> 
+          <%= f.text_area :bio, rows: 4 %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :bio} %>
+
+          <legend>Specialties</legend>
+          <%= f.text_field :specialities, class: "specialities tags", id: :specialities_tags, value: as_tags_csvs(@user.specialities.to_a) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :specialities} %>
+
+          <legend>Memberships</legend>
+          <%= f.text_field :memberships, class: "memberships tags", id: :memberships_tags, value: as_tags_csvs(@user.memberships.to_a) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :memberships} %>
+
+          <div class="col1">
+	    <legend>LinkedIn</legend>
+            <%= f.text_field :linkedin_handle %>
+            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :linkedin_handle} %>
+          </div>
+          <div class="col2">
+	    <legend>Twitter</legend>
+            <%= f.text_field :twitter_handle %>
+            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :twitter_handle} %>
+          </div>
+        </div>    
       </fieldset>
-      <div class="promo">
-        <h3>Sign up now&mdash;the first X months are free!</h3>
-        <p>Your card won't be charged until the end of the intro period. If you choose to cancel before then, you won't be charged anything.</p>
-        
-      </div>
     </section>
+
+	<section>
+	  <h2>Information about your firm</h2>
+	  <fieldset>
+	    <div class="col-wide">
+	      <legend>Company name</legend> 
+	      <%= f.text_field :company_name %>
+	      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_name} %>
+
+	      <legend>Company website</legend>
+	      <%= f.text_field :company_website %>
+	      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_website} %>
+
+	      <legend>Your job title</legend>
+	      <%= f.text_field :job_title %>
+	      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :job_title} %>
+
+	      <legend>Phone number</legend>
+	      <div class="phone">
+		<b>1</b>
+	        <%= f.text_field :phone_1, maxlength: 3 %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :phone_1} %>
+	        <b>&ndash;</b>
+	        <%= f.text_field :phone_2, maxlength: 3 %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :phone_2} %>
+	        <b>&ndash;</b>
+	        <%= f.text_field :phone_3, maxlength: 4 %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :phone_3} %>
+		<div class="clearfix"></div>
+	      </div>
+
+	      <div class="col1">
+		<legend>Address 1</legend>
+	        <%= f.text_field :address_1 %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :address_1} %>
+	      </div>
+	      <div class="col2">
+		<legend>Address 2</legend>
+	        <%= f.text_field :address_2 %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :address_2} %>
+	      </div>
+	      <div class="col1">
+		<legend>City</legend>
+	        <%= f.text_field :city %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :city} %>
+	      </div>
+	      <div class="col2-1">
+		<legend>State</legend>
+	        <%= f.text_field :state %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :state} %>
+	      </div>
+	      <div class="col2-2">
+		<legend>Zip</legend>
+	        <%= f.text_field :zip %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :zip} %>
+	      </div>
+	    </div>
+
+	  </fieldset>
+	</section>
     
     <footer>
       <a href="#" class="submit btn-blue">Next</a>	
