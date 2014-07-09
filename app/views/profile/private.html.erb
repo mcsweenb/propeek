@@ -50,18 +50,19 @@
         </div>
         
         <div class="waterfall" >
-	  <div class="detail-box awards">
-	    <div class="box-icon"></div>
-	    <h3>Awards</h3>
-	    
-	    <div class="read-inner">
-	      <section>
-		<p><strong>Award 1</strong><br>Organization Name</p>
-		<p><strong>Award 2</strong><br>Organization Name</p>
-	      </section>
-	    </div>
-	    
-	  </div> 
+		  <div class="detail-box fees">
+		    <div class="box-icon"></div>
+		    <h3>Fee Structure</h3>
+
+		    <div class="read-inner">
+		      <section>
+			<p><strong>Hourly</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_hourly %>/hr</p>
+			<p><strong>Daily</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_daily %>/day</p>
+		      </section>
+		    </div>
+
+		  </div> 
+
 	  
 	  <div class="detail-box specialties">
 	    <div class="box-icon"></div>
@@ -78,17 +79,6 @@
 	    
 	  </div> 
 	  
-	  <div class="detail-box languages">
-	    <div class="box-icon"></div>
-	    <h3>Languages</h3>
-	    
-	    <div class="read-inner">
-	      <section>
-	        <p><%= @user.languages.map(&:name).join(", ") %></p>
-	      </section>
-	    </div>
-	    
-	  </div> 
 	  
 	  <div class="detail-box memberships">
 	    <div class="box-icon"></div>
@@ -101,29 +91,19 @@
 	    </div>
 	    
 	  </div> 
-	  
-	  <div class="detail-box experience">
+	
+	  <div class="detail-box awards">
 	    <div class="box-icon"></div>
-	    <h3>Previous Experience</h3>
-	    
-	    <div class="read-inner">
-              <%= render :partial => "profile/experience", collection: @user.experiences %>
-	    </div>
-	    
-	  </div> 
-	  
-	  <div class="detail-box fees">
-	    <div class="box-icon"></div>
-	    <h3>Fee Structure</h3>
+	    <h3>Awards</h3>
 	    
 	    <div class="read-inner">
 	      <section>
-		<p><strong>Hourly</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_hourly %>/hr</p>
-		<p><strong>Daily</strong><br>Starting at <%= money_without_cents_and_with_symbol @user.min_daily %>/day</p>
+		<p><strong>Award 1</strong><br>Organization Name</p>
+		<p><strong>Award 2</strong><br>Organization Name</p>
 	      </section>
 	    </div>
-	    
-	  </div> 
+	  </div>
+		
 	  
 	  <div class="detail-box education">
 	    <div class="box-icon"></div>

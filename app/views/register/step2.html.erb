@@ -3,44 +3,79 @@
     <%= render :partial => "register/breadcrumbs", :locals => {step_no: 2} %>
 
     <%= form_for :user, url: '/register2', html: {class: 'register_form'} do |f| %>
+
+	<section>
+	  <h2>Your fee structure</h2>
+	  <span class="extra-info">Please fill in at least one of the following fields</span>
+	  <fieldset>
+	    <div class="col-wide">
+	      <div class="col1">
+		<legend>Minimum hourly rate</legend>
+	        <%= f.text_field :min_hourly %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :min_hourly} %>
+	      </div>
+	      <div class="col2">
+		<legend>Maximum hourly rate</legend>
+	        <%= f.text_field :max_hourly %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :max_hourly} %>
+	      </div>
+	      <div class="col1">
+		<legend>Minimum daily rate</legend>
+	        <%= f.text_field :min_daily %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :min_daily} %>
+	      </div>
+	      <div class="col2">
+		<legend>Maximum daily rate</legend>
+	        <%= f.text_field :max_daily %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :max_daily} %>
+	      </div>
+	      <legend>Other notes about fees</legend>
+	        <%= f.text_area :fee_notes %>
+	        <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :fee_notes} %>
+	    </div>
+	  </fieldset>
+	</section>
+	
     <section>
-      <h2>Professional information</h2>
+      <h2>Billing information</h2>
       <fieldset>
-        <div class="col-wide">
-          <legend>Bio</legend> 
-          <%= f.text_area :bio, rows: 4 %>
-          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :bio} %>
-
-          <legend>Specialties</legend>
-          <%= f.text_field :specialities, class: "specialities tags", id: :specialities_tags, value: as_tags_csvs(@user.specialities.to_a) %>
-          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :specialities} %>
-
-          <legend>Memberships</legend>
-          <%= f.text_field :memberships, class: "memberships tags", id: :memberships_tags, value: as_tags_csvs(@user.memberships.to_a) %>
-          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :memberships} %>
-
-          <legend>Licensed in</legend>
-          <%= f.text_field :licensed_in %>
-          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :licensed_in} %>
-
-          <legend>Languages</legend>
-          <%= f.text_field :languages, class: "languages tags", id: :languages_tags, value: as_tags_csvs(@user.languages.to_a) %>
-          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :languages} %>
+        <div>
+	  <legend>Credit card type*</legend>
+	  <div class="cc-type">
+	    <input type="radio" name="cc-group" value="Amex"><div class="card-image amex"><b>Amex</b></div>
+	    <input type="radio" name="cc-group" value="Mastercard"><div class="card-image mastercard"><b>Mastercard</b></div>
+	    <input type="radio" name="cc-group" value="Visa"><div class="card-image visa"><b>Visa</b></div>
+	    <input type="radio" name="cc-group" value="Visa"><div class="card-image discover"><b>Discover</b></div>
+	  </div>
 	  
-          <div class="col1">
-	    <legend>LinkedIn</legend>
-            <%= f.text_field :linkedin_handle %>
-            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :linkedin_handle} %>
-          </div>
-          <div class="col2">
-	    <legend>Twitter</legend>
-            <%= f.text_field :twitter_handle %>
-            <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :twitter_handle} %>
-          </div>
-        </div>    
+	  <div class="col">
+	    <legend>Credit card number*</legend>
+	    <input type="text" class="cc-number">
+	  </div>
+	  <div class="col">
+	    <legend>CCV*</legend>
+	    <input type="text" class="ccv">
+	    <div class="ccv-image card-image"></div>
+	  </div>
+	  
+	  <div class="col clearfix">
+	    <legend>Expiration*</legend>
+	    <input type="text" placeholder="MM" class="cc-month"> / <input type="text" placeholder="YYYY" class="cc-year">
+	  </div>
+	  <div class="col">
+	    <legend>Billing zipcode*</legend>
+	    <input type="text" class="cc-zip">
+	  </div>
+        </div>
+        
       </fieldset>
-    </section>
-    
+      <div class="promo">
+        <h3>Sign up now&mdash;the first X months are free!</h3>
+        <p>Your card won't be charged until the end of the intro period. If you choose to cancel before then, you won't be charged anything.</p>
+        
+      </div>
+    </section>	
+	
     <footer>
       <a href="/register" class="previous btn-gray-med">Previous</a>
       <a href="#" class="submit btn-blue">Next</a>

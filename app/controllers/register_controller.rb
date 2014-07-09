@@ -11,11 +11,18 @@ class RegisterController < ApplicationController
       end
     elsif request.post?
       @user = User.create(params[:user].
-                          slice(:email, :first_name, :last_name, :password, :password_confirmation, :avatar).
-                          permit(:email, :first_name, :last_name, :password, :password_confirmation, :avatar)
+                          slice(:email, :first_name, :last_name, :password, :password_confirmation, :avatar, :bio, :linkedin_handle, :twitter_handle, :company_name, :company_website, :job_title, :phone_1, :phone_2, :phone_3, :address_1, :address_2, :city, :state, :zip).
+                          permit(:email, :first_name, :last_name, :password, :password_confirmation, :avatar, :bio, :linkedin_handle, :twitter_handle, :company_name, :company_website, :job_title, :phone_1, :phone_2, :phone_3, :address_1, :address_2, :city, :state, :zip)
                           )
+                          
+                          
+                          
       if @user.valid?
         @user.update_attribute(:registration_step_number, 1)
+        / i know there is no validatoin here yet - this should really be submitted as a nested form. /
+        @user.update_list(Speciality, params[:user][:specialities])
+        @user.update_list(Membership, params[:user][:memberships])
+        
         render :step2
         return
       end
@@ -25,7 +32,7 @@ class RegisterController < ApplicationController
   def step2
     @user = current_user
     base_errors = {}
-    if request.post?      
+    if request.post?
       @user.bio = params[:user][:bio]
       unless @user.update_list(Speciality, params[:user][:specialities])
         base_errors[:specialities] = "too long"
@@ -36,9 +43,9 @@ class RegisterController < ApplicationController
       unless @user.update_list(Language, params[:user][:languages])
         base_errors[:languages] = "too long"
       end
-      @user.licensed_in = params[:user][:licensed_in]      
-      @user.linkedin_handle = params[:user][:linkedin_handle]      
-      @user.twitter_handle = params[:user][:twitter_handle]      
+      @user.licensed_in = params[:user][:licensed_in]
+      @user.linkedin_handle = params[:user][:linkedin_handle]
+      @user.twitter_handle = params[:user][:twitter_handle]
 
       if @user.valid? && base_errors.empty?
         @user.registration_step_number = 2
@@ -56,12 +63,12 @@ class RegisterController < ApplicationController
     @user = current_user
     if request.post?
       if @user.update_attributes(params[:user].
-                                 slice(:company_name, :company_website, :job_title, 
-                                       :phone_1, :phone_2, :phone_3, 
+                                 slice(:company_name, :company_website, :job_title,
+                                       :phone_1, :phone_2, :phone_3,
                                        :address_1, :address_2, :city, :state, :zip,
                                        :min_hourly, :max_hourly, :min_daily, :max_daily).
                                  permit(:company_name, :company_website, :job_title,
-                                        :phone_1, :phone_2, :phone_3, 
+                                        :phone_1, :phone_2, :phone_3,
                                         :address_1, :address_2, :city, :state, :zip,
                                         :min_hourly, :max_hourly, :min_daily, :max_daily)
                                  )
@@ -82,7 +89,7 @@ class RegisterController < ApplicationController
                                        experiences: [:id, :company_name, :company_website, :title, :description, :start_date, :end_date])
       if @user.update_attributes(educations_attributes: permitted[:educations],
                                  experiences_attributes: permitted[:experiences])
-        @user.update_attribute(:registration_step_number, 4)        
+        @user.update_attribute(:registration_step_number, 4)
         redirect_to profile_private_url, notice: "Congrats! Your profile was successfully created."
         return
        else
