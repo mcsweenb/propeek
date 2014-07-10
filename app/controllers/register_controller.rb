@@ -10,14 +10,14 @@ class RegisterController < ApplicationController
         @user = User.new
       end
     elsif request.post?
-      @user = User.create(params[:user].
-                          slice(:email, :first_name, :last_name, :password, :password_confirmation, :avatar).
-                          permit(:email, :first_name, :last_name, :password, :password_confirmation, :avatar)
-                          )
+      @user = User.new(params[:user].permit(:email, :first_name, :last_name, :password, :password_confirmation, :crop_w, :crop_h, :crop_x, :crop_y))
+      @user.avatar = params[:user][:avatar]
       if @user.valid?
         @user.update_attribute(:registration_step_number, 1)
         render :step2
         return
+      else
+        logger.debug @user.errors.full_messages
       end
     end
   end
@@ -56,10 +56,6 @@ class RegisterController < ApplicationController
     @user = current_user
     if request.post?
       if @user.update_attributes(params[:user].
-                                 slice(:company_name, :company_website, :job_title, 
-                                       :phone_1, :phone_2, :phone_3, 
-                                       :address_1, :address_2, :city, :state, :zip,
-                                       :min_hourly, :max_hourly, :min_daily, :max_daily).
                                  permit(:company_name, :company_website, :job_title,
                                         :phone_1, :phone_2, :phone_3, 
                                         :address_1, :address_2, :city, :state, :zip,

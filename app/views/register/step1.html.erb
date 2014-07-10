@@ -34,7 +34,7 @@
           <div id="photo-drop-zone" class="photo place-holder">
 	    <p>Drag image here<br>or</p>
             <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
-              <%= hidden_field_tag attribute, '', :id => attribute %>  
+              <%= hidden_field_tag "user[#{attribute}]", '', :id => attribute %>  
             <% end %>  
 	    <%= f.file_field :avatar, id: :files %>
 	    <!-- <input type="file" id="files" accept="image/*" name="files[]" /> -->
