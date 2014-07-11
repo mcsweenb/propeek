@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :bio, length: {maximum: 255, allow_nil: true}
 
   validates :company_name, length: {maximum: 128, allow_nil: true}
-  validates :company_website, length: {maximum: 255, allow_nil: true}
+  validates :company_website, length: {maximum: 255, allow_nil: true, message: "is too long"}
   validates :job_title, length: {maximum: 128, allow_nil: true}
 
   validates :phone_1, length: {maximum: 3, allow_nil: true}
@@ -77,6 +77,23 @@ class User < ActiveRecord::Base
   
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h  
+
+  before_validation do 
+    handle_url(:company_website, company_website)
+  end
+
+  def handle_url(attr, value)
+    return if value.blank?
+    u = URI.parse(value)
+    if(!u.scheme)
+      value = send("#{attr}=".to_sym, "http://#{value}")
+      handle_url(attr, value)
+    elsif(%w{http https}.include?(u.scheme))
+      # you're okay
+    # else
+    #   errors.add(attr, "Bad URL")
+    end
+  end
 
   def update_list(collection_class, params_list)
     unless params_list.blank?
