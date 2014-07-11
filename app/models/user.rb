@@ -86,7 +86,8 @@ class User < ActiveRecord::Base
     end
   end
   before_save do    
-    unless (changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
+    if !company_address.blank? &&
+        !(changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
       begin
         geocode
       rescue

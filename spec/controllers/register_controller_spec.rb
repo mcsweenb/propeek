@@ -167,6 +167,24 @@ RSpec.describe RegisterController, :type => :controller do
         expect(response).to be_success
         expect(response).to render_template(:step3)
       end
+
+      it "should not gecode an address " do
+        user = FactoryGirl.create(:user)
+        UserSession.create(user)
+
+        post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
+          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3",
+          address_1: "", adderss_2: "", city: "", state: "", zip: "",
+          phone_1: "111", phone_2: "222", phone_3: "1234"}
+
+        user = assigns(:user)
+
+        expect(user.lonlat).to be_nil
+
+        expect(response).to be_success
+        expect(response).to render_template(:step3)
+      end
+
     end
   end
 
