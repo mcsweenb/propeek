@@ -39,6 +39,7 @@ RSpec.describe ProfileController, :type => :controller do
         post 'login', user_session: {}
         
         expect(response).to be_success
+        expect(flash[:notice]).to eq "No user with email address"
         expect(response).to render_template("login")
       end
 
@@ -46,6 +47,7 @@ RSpec.describe ProfileController, :type => :controller do
         post 'login', user_session: {email: user.email, password: 'rubbish'}
         
         expect(response).to be_success
+        expect(flash[:notice]).to eq "Incorrect password"
         expect(response).to render_template("login")
       end
     end
