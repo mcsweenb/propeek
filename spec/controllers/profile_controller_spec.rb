@@ -113,7 +113,8 @@ RSpec.describe ProfileController, :type => :controller do
         it "should go to step 3" do
           UserSession.create(user)
           get :private
-          expect(response).to redirect_to(profile_private_url)
+          expect(response).to be_success
+          expect(response).to render_template("private")
         end
       end
     end
