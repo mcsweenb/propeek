@@ -79,13 +79,18 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h  
 
   geocoded_by :company_address do |obj, result|
-    logger.debug obj
-    logger.debug result
-    obj.lonlat = "POINT(#{result.first.longitude} #{result.first.latitude})"
+    if !result.empty? && 
+        result.first.longitude &&
+        result.first.latitude
+      obj.lonlat = "POINT(#{result.first.longitude} #{result.first.latitude})"
+    end
   end
   before_save do    
     unless (changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
-      geocode
+      begin
+        geocode
+      rescue
+      end
     end
   end
 
