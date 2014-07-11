@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 gem 'pg'
+gem 'activerecord-postgis-adapter'
+gem 'geocoder'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,7 +42,10 @@ group :development, :test do
   gem 'quiet_assets'
 end
 
-gem 'shoulda-matchers'
+group :test do
+  gem 'webmock'
+  gem 'shoulda-matchers'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

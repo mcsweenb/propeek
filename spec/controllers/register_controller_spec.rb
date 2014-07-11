@@ -142,13 +142,15 @@ RSpec.describe RegisterController, :type => :controller do
         UserSession.create(user)
 
         post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
-          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3"}
+          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3",
+          address_1: "address 1", adderss_2: nil, city: "random", state: "blasted", zip: "232332",
+          phone_1: "111", phone_2: "222", phone_3: "1234"}
 
         user = assigns(:user)
         expect(user.registration_step_number).to eq(2)
 
-        expect(user.company_name).to match /Jackals/
-        expect(user.bio).to match /test bio/
+        expect(user.company_name).to match(/Jackals/)
+        expect(user.bio).to match(/test bio/)
 
         expect(user.specialities.count).to eq(3)
         expect(user.specialities).to include(Speciality.find_by_name(:s1))
@@ -159,6 +161,8 @@ RSpec.describe RegisterController, :type => :controller do
         expect(user.memberships).to include(Membership.find_by_name(:m1))
         expect(user.memberships).to include(Membership.find_by_name(:m2))
         expect(user.memberships).to include(Membership.find_by_name(:m3))
+
+        expect(user.lonlat).to_not be_nil
 
         expect(response).to be_success
         expect(response).to render_template(:step3)

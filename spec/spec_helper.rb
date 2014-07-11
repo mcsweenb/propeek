@@ -21,7 +21,16 @@ include Authlogic::TestCase
 
 require "support/json_helpers"
 
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
+
+  config.before(:each) do
+    stub_request(:any, /maps.googleapis.com\/maps\/api\/geocode\/json/).
+      to_return(status: 200, body: File.new("#{__dir__}/sample_geocode_response.json"), headers: {})
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 

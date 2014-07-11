@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706153538) do
+ActiveRecord::Schema.define(version: 20140711200423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "educations", force: true do |t|
     t.string   "qualification"
@@ -70,9 +71,9 @@ ActiveRecord::Schema.define(version: 20140706153538) do
     t.datetime "updated_at"
   end
 
-  add_index "reviews", ["created_at"], name: "index_reviews_on_created_at", using: :btree
-  add_index "reviews", ["review_by_id"], name: "index_reviews_on_review_by_id", using: :btree
-  add_index "reviews", ["review_for_id"], name: "index_reviews_on_review_for_id", using: :btree
+  add_index "reviews", ["created_at"], :name => "index_reviews_on_created_at"
+  add_index "reviews", ["review_by_id"], :name => "index_reviews_on_review_by_id"
+  add_index "reviews", ["review_for_id"], :name => "index_reviews_on_review_for_id"
 
   create_table "specialities", force: true do |t|
     t.string "name"
@@ -89,13 +90,13 @@ ActiveRecord::Schema.define(version: 20140706153538) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                                                null: false
-    t.string   "crypted_password",                                     null: false
-    t.string   "password_salt",                                        null: false
-    t.string   "persistence_token",                                    null: false
-    t.string   "perishable_token",                                     null: false
-    t.integer  "login_count",                          default: 0,     null: false
-    t.integer  "failed_login_count",                   default: 0,     null: false
+    t.string   "email",                                                                                             null: false
+    t.string   "crypted_password",                                                                                  null: false
+    t.string   "password_salt",                                                                                     null: false
+    t.string   "persistence_token",                                                                                 null: false
+    t.string   "perishable_token",                                                                                  null: false
+    t.integer  "login_count",                                                                       default: 0,     null: false
+    t.integer  "failed_login_count",                                                                default: 0,     null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -103,8 +104,8 @@ ActiveRecord::Schema.define(version: 20140706153538) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name",               limit: 128,                 null: false
-    t.string   "last_name",                limit: 128,                 null: false
+    t.string   "first_name",               limit: 128,                                                              null: false
+    t.string   "last_name",                limit: 128,                                                              null: false
     t.string   "bio"
     t.string   "linkedin_handle"
     t.string   "twitter_handle"
@@ -122,18 +123,21 @@ ActiveRecord::Schema.define(version: 20140706153538) do
     t.string   "state"
     t.string   "zip"
     t.integer  "min_hourly_cents"
-    t.string   "min_hourly_currency",                  default: "USD", null: false
+    t.string   "min_hourly_currency",                                                               default: "USD", null: false
     t.integer  "max_hourly_cents"
-    t.string   "max_hourly_currency",                  default: "USD", null: false
+    t.string   "max_hourly_currency",                                                               default: "USD", null: false
     t.integer  "min_daily_cents"
-    t.string   "min_daily_currency",                   default: "USD", null: false
+    t.string   "min_daily_currency",                                                                default: "USD", null: false
     t.integer  "max_daily_cents"
-    t.string   "max_daily_currency",                   default: "USD", null: false
+    t.string   "max_daily_currency",                                                                default: "USD", null: false
     t.string   "fee_notes"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.spatial  "lonlat",                   limit: {:srid=>4326, :type=>"point", :geographic=>true}
   end
+
+  add_index "users", ["lonlat"], :name => "index_users_on_lonlat", :spatial => true
 
 end

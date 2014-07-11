@@ -78,6 +78,17 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h  
 
+  geocoded_by :company_address do |obj, result|
+    logger.debug obj
+    logger.debug result
+    obj.lonlat = "POINT(#{result.first.longitude} #{result.first.latitude})"
+  end
+  before_save do    
+    unless (changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
+      geocode
+    end
+  end
+
   before_validation do 
     handle_url(:company_website, company_website)
   end
