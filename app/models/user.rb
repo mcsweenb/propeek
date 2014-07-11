@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   validates :state, length: {maximum: 15, allow_nil: true}
   validates :zip, length: {maximum: 32, allow_nil: true}
 
+  validates :fee_notes, length: {maximum: 255, allow_nil: true}
+
   monetize :min_hourly_cents, allow_nil: true,
   :numericality => {
     :greater_than_or_equal_to => 0,
@@ -69,22 +71,12 @@ class User < ActiveRecord::Base
   has_many :reviews_given_to, through: :reviews_given, source: :review_for
 
   has_attached_file :avatar, 
-  styles: { profile_detail: "324x324#", profile_thumb: "120x120#", comment_thumb: "107x107#" }, 
+  styles: { profile_detail: "324x324>", profile_thumb: "120x120>", comment_thumb: "107x107>" }, 
   default_url: "/images/default_avatar/:style/missing.png",
   processors:  [:cropper]
   
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h  
-  after_update :reprocess_avatar, :if => :cropping? 
-
-  def cropping?  
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?  
-  end  
-  
-  def reprocess_avatar  
-    avatar.reprocess!  
-  end  
-
 
   def update_list(collection_class, params_list)
     unless params_list.blank?

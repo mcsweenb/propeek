@@ -165,28 +165,24 @@ function handleFileSelect(files,$target) {
         $($target).html(span); 
         //determine if it's portrait or landscape and set max height / width accordingly
         var pic_real_width, pic_real_height;
-        $("<img/>") // Make in memory copy of image to avoid css issues
-			    .attr("src", $('#crop-target').attr("src"))
-			    .load(function() {
-			        pic_real_width = this.width;   // Note: $(this).width() will not
-			        pic_real_height = this.height; // work for in memory images.
-			        console.log('width: '+pic_real_width);
-			        console.log('height: '+pic_real_height);
-			        
-							if( pic_real_width >= pic_real_height) {
-				        //$('#crop-target').attr('width','100%');
-				        $('#crop-target').attr('width','100%');
+         $("<img/>") // Make in memory copy of image to avoid css issues
+	     .attr("src", $('#crop-target').attr("src"))
+	     .load(function() {
+		 pic_real_width = this.width;   // Note: $(this).width() will not
+		 pic_real_height = this.height; // work for in memory images.
+		 console.log('width: '+pic_real_width);
+		 console.log('height: '+pic_real_height);		 
+		 if( pic_real_width >= pic_real_height) {
+		     //$('#crop-target').attr('width','100%');
+		     $('#crop-target').attr('width','100%');
 				        
-								$('#crop-target').attr('height',($('#crop-target').width()*pic_real_height)/pic_real_width);
-			        }else {
-								$('#crop-target').attr('height','500');
-				        $('#crop-target').attr('width',(pic_real_width*$('#crop-target').height())/pic_real_height);
-								
-				        
-			        }
-			        initJcrop(); 
-			    });
-        
+		     $('#crop-target').attr('height',($('#crop-target').width()*pic_real_height)/pic_real_width);
+		 }else {
+		     $('#crop-target').attr('height','500');
+		     $('#crop-target').attr('width',(pic_real_width*$('#crop-target').height())/pic_real_height);		     		     
+		 }
+		 initJcrop(pic_real_width, pic_real_height); 
+	     });         
   };
     })(f);
 
@@ -196,7 +192,7 @@ function handleFileSelect(files,$target) {
 }
 
 var jcrop_api; 
-function initJcrop()//{{{
+function initJcrop(real_width, real_height)//{{{
 {
   // Hide any interface elements that require Jcrop
   // (This is for the local user interface portion.)
@@ -208,10 +204,11 @@ function initJcrop()//{{{
       aspectRatio: 1/1,
       onChange: showPreview,
       onSelect: showPreview,
+      trueSize: [real_width, real_height]
   },function(){
 
-    jcrop_api = this;
-    jcrop_api.animateTo([50,50,300,300]);
+      jcrop_api = this;
+      //jcrop_api.animateTo([50,50,300,300]);
 
   });
 
@@ -226,12 +223,14 @@ function showPreview(coords) {
     $('#crop_w').val(coords.w);  
     $('#crop_h').val(coords.h); 
 
-    $('#photo-drop-zone').css({
-	width: Math.round(rx * 500) + 'px',
-	height: Math.round(ry * 370) + 'px',
-	marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-	marginTop: '-' + Math.round(ry * coords.y) + 'px'
-    });
+    console.log(coords);
+
+    // $('#photo-drop-zone').css({
+    // 	width: Math.round(rx * 500) + 'px',
+    // 	height: Math.round(ry * 370) + 'px',
+    // 	marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+    // 	marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    // });
 };
 
 function releaseCheck()

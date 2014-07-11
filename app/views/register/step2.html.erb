@@ -8,17 +8,17 @@
       <h2>Professional information</h2>
       <fieldset>
         <div class="col-wide">
-	    	<div class="col1">
-	      		<legend>Company name</legend> 
-	      		<%= f.text_field :company_name %>
-	      		<%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_name} %>
-			</div>
-			<div class="col2">
-		      <legend>Job title</legend>
-		      <%= f.text_field :job_title %>
-		      <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :job_title} %>
-			</div>
-		
+	  <div class="col1">
+	    <legend>Company name</legend> 
+	    <%= f.text_field :company_name %>
+	    <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_name} %>
+	  </div>
+	  <div class="col2">
+	    <legend>Job title</legend>
+	    <%= f.text_field :job_title %>
+	    <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :job_title} %>
+	  </div>
+	  
           <legend>Bio</legend> 
           <%= f.text_area :bio, rows: 4 %>
           <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :bio} %>
@@ -39,17 +39,17 @@
 	  <h2>Contact Information</h2>
 	  <fieldset>
 	    <div class="col-wide">
-
-	    	<div class="col1">
-      			<legend>website</legend>
-		   		<%= f.text_field :company_website %>
-		   		<%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_website} %>
-			</div>
-			<div class="col2">
-	    		<legend>LinkedIn</legend>
+              
+	      <div class="col1">
+      		<legend>website</legend>
+		<%= f.text_field :company_website %>
+		<%= render :partial => 'error', :locals => {errors: @user.errors, attr: :company_website} %>
+	      </div>
+	      <div class="col2">
+	    	<legend>LinkedIn</legend>
             	<%= f.text_field :linkedin_handle %>
             	<%= render :partial => 'error', :locals => {errors: @user.errors, attr: :linkedin_handle} %>
-			</div>
+	      </div>
 	      <legend>Phone number</legend>
 	      <div class="phone">
 		<b>1</b>

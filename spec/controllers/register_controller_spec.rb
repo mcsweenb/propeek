@@ -46,7 +46,6 @@ RSpec.describe RegisterController, :type => :controller do
         post 'step1', user: user_attributes
 
         user = assigns(:user)
-        puts user.errors.full_messages
         expect(user.email).to match user_attributes[:email]
         expect(user.registration_step_number).to eq(1)
 
@@ -102,31 +101,53 @@ RSpec.describe RegisterController, :type => :controller do
         user = FactoryGirl.create(:user, registration_step_number: 1)
         UserSession.create(user)
 
-        post 'step2', user: {bio: "a"*256, specialities: "s1,#{'s2'*256},s3", memberships: "m1,#{'m2'*256},m3", languages: "l1,#{'l2'*256},l3",
-          licensed_in: "a"*256, linkedin_handle: "l"*256, twitter_handle: "t"*256}
+        post 'step2', user: {company_name: "a"*256, company_website: "w"*256, job_title: "j"*256,
+          bio: "a"*256, specialities: "s1,#{'s2'*256},s3", memberships: "m1,#{'m2'*256},m3",
+          phone_1: "11111", phone_2: "11111", phone_3: "11111",
+          address_1: "a"*256, address_2: "a"*256, city: "a"*256,
+          state: "s"*256, zip: "z"*256}
 
         user = assigns(:user)
         expect(user.registration_step_number).to eq(1)
 
         expect(response).to be_success
         expect(response).to render_template(:step2)
-        expect(user.errors.size).to eq 7        
-        assert_select "div.error span", 7
+        expect(user.errors.size).to eq 12
+        assert_select "div.error span", 12
       end
     end
 
+
+    context "Submit step 2 with new invalid data" do 
+      it "should return with errors " do
+        user = FactoryGirl.create(:user, registration_step_number: 1)
+        UserSession.create(user)
+
+        post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
+          bio: "test bio", specialities: "s1,#{'s2'*256},s3", memberships: "m1,#{'m2'*256},m3"}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(1)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step2)
+        expect(user.errors.size).to eq 2
+        assert_select "div.error span", 2
+      end
+    end
 
     context "Submit step 2 with new valid data" do 
       it "should update user fields and associations " do
         user = FactoryGirl.create(:user)
         UserSession.create(user)
 
-        post 'step2', user: {bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3", languages: "l1,l2,l3",
-          licensed_in: "New York", linkedin_handle: "linkedinhandle", twitter_handle: "twitterhandle"}
+        post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
+          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3"}
 
         user = assigns(:user)
         expect(user.registration_step_number).to eq(2)
 
+        expect(user.company_name).to match /Jackals/
         expect(user.bio).to match /test bio/
 
         expect(user.specialities.count).to eq(3)
@@ -138,15 +159,6 @@ RSpec.describe RegisterController, :type => :controller do
         expect(user.memberships).to include(Membership.find_by_name(:m1))
         expect(user.memberships).to include(Membership.find_by_name(:m2))
         expect(user.memberships).to include(Membership.find_by_name(:m3))
-
-        expect(user.languages.count).to eq(3)
-        expect(user.languages).to include(Language.find_by_name(:l1))
-        expect(user.languages).to include(Language.find_by_name(:l2))
-        expect(user.languages).to include(Language.find_by_name(:l3))
-
-        expect(user.licensed_in).to match /New York/
-        expect(user.linkedin_handle).to match /linkedinhandle/
-        expect(user.twitter_handle).to match /twitterhandle/
 
         expect(response).to be_success
         expect(response).to render_template(:step3)
@@ -164,22 +176,8 @@ RSpec.describe RegisterController, :type => :controller do
 
         expect(response).to be_success
         assert_select "form.register_form" do
-          assert_select "input[name=?]", "user[company_name]"
-          assert_select "input[name=?]", "user[company_website]"
-          assert_select "input[name=?]", "user[job_title]"
-          assert_select "input[name=?]", "user[phone_1]"
-          assert_select "input[name=?]", "user[phone_2]"
-          assert_select "input[name=?]", "user[phone_3]"
-          assert_select "input[name=?]", "user[address_1]"
-          assert_select "input[name=?]", "user[address_2]"
-          assert_select "input[name=?]", "user[city]"
-          assert_select "input[name=?]", "user[state]"
-          assert_select "input[name=?]", "user[zip]"
-
           assert_select "input[name=?]", "user[min_hourly]"
           assert_select "input[name=?]", "user[max_hourly]"
-          assert_select "input[name=?]", "user[min_daily]"
-          assert_select "input[name=?]", "user[max_daily]"
           assert_select "textarea[name=?]", "user[fee_notes]"
         end
       end
@@ -196,8 +194,7 @@ RSpec.describe RegisterController, :type => :controller do
         user = assigns(:user)
         expect(user.registration_step_number).to eq(3)
 
-        expect(response).to be_success
-        expect(response).to render_template(:step4)
+        expect(response).to redirect_to(profile_private_url)
       end
     end
 
@@ -206,17 +203,14 @@ RSpec.describe RegisterController, :type => :controller do
         user = FactoryGirl.create(:user, registration_step_number: 2)
         UserSession.create(user)
 
-        post 'step3', user: {company_name: "a"*256, company_website: "w"*256, job_title: "j"*256, 
-          phone_1: "11111", phone_2: "11111", phone_3: "11111",
-          address_1: "a"*256, address_2: "a"*256, city: "a"*256,
-          state: "s"*256, zip: "z"*256}
+        post 'step3', user: {min_hourly: :x, max_hourly: :y, fee_notes: "a"*256}
 
         user = assigns(:user)
         expect(user.registration_step_number).to eq(2)
 
         expect(response).to be_success
         expect(response).to render_template(:step3)
-        expect(user.errors.size).to eq 11
+        expect(user.errors.size).to eq 3
       end
     end
 
@@ -226,105 +220,20 @@ RSpec.describe RegisterController, :type => :controller do
         user = FactoryGirl.create(:user)
         UserSession.create(user)
 
-        post 'step3', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal", 
-          phone_1: "111", phone_2: "123", phone_3: "1234",
-          address_1: "blah street", address_2: "bleep road", city: "neighbourhood",
-          state: "IL", zip: "676997"}
+        post 'step3', user: {min_hourly: 100, max_hourly: 200, fee_notes: "test note"}
 
         user = assigns(:user)
         expect(user.registration_step_number).to eq(3)
-
-        expect(user.company_name).to match /Jackals/
-
-        expect(user.errors.size).to eq 0
-        assert_select "div.error span", 0
-
-        expect(response).to be_success
-        expect(response).to render_template(:step4)
-        
-        expect(assigns[:user].educations).to_not be_empty
-        expect(assigns[:user].experiences).to_not be_empty
-      end
-    end
-  end
-
-  describe "GET 'step4'" do
-    it "returns http success" do
-      user = FactoryGirl.create(:user)
-      UserSession.create(user)
-
-      get 'step4'
-      
-      expect(response).to be_success
-      expect(response).to render_template(:step4)
-      
-      assert_select "form.register_form" do
-        assert_select "input[name=?]", "user[educations][0][qualification]"
-        assert_select "input[name=?]", "user[educations][0][institution]"
-        assert_select "input[name=?]", "user[educations][0][start_date]"
-        assert_select "input[name=?]", "user[educations][0][end_date]"
-        assert_select "textarea[name=?]", "user[educations][0][description]"
-
-        assert_select "input[name=?]", "user[experiences][0][company_name]"
-        assert_select "input[name=?]", "user[experiences][0][company_website]"
-        assert_select "input[name=?]", "user[experiences][0][title]"
-        assert_select "input[name=?]", "user[experiences][0][start_date]"
-        assert_select "input[name=?]", "user[experiences][0][end_date]"
-        assert_select "textarea[name=?]", "user[experiences][0][description]"
-      end
-    end
-
-
-    context "Submit step 4 with new invalid data" do 
-      it "should return with errors " do
-        user = FactoryGirl.create(:user, registration_step_number: 3)
-        UserSession.create(user)
-
-        post 'step4', user: {
-          "educations"=>
-          {"0"=>
-            {"qualification"=>"", "institution"=>"", "description"=>"", "start_date"=>"", "end_date"=>""}
-          }, 
-          "experiences"=>
-          {"0"=>
-            {"company_name"=>"", "company_website"=>"", "title"=>"", "description"=>"", "start_date"=>"", "end_date"=>""}
-          }
-        }
-
-        user = assigns(:user)
-        expect(user.registration_step_number).to eq(3)
-
-        expect(response).to be_success
-        expect(response).to render_template(:step4)
-        expect(user.errors.size).to eq 7
-      end
-    end
-
-    context "Submit step 4 with new valid data" do 
-      it "should update user fields and associations " do
-        user = FactoryGirl.create(:user, registration_step_number: 3)
-        UserSession.create(user)
-
-        post 'step4', user: {
-          "educations"=>
-          {"0"=>
-            {"qualification"=>"BA LLC", "institution"=>"Badd Assock", "description"=>"Blasetasdasd", "start_date"=>"07/01/2014", "end_date"=>"2013-07-01"}
-          }, 
-          "experiences"=>
-          {"0"=>
-            {"company_name"=>"sdasd", "company_website"=>"adad", "title"=>"adasdsa", "description"=>"adasdsad", "start_date"=>"2014-01-07", "end_date"=>""}
-          }
-        }
-
-        user = assigns(:user)
-        expect(user.registration_step_number).to eq(4)
 
         expect(user.errors.size).to eq 0
         assert_select "div.error span", 0
 
         expect(response).to redirect_to(profile_private_url)
+        
+        expect(assigns[:user].min_hourly_cents).to eq(100 * 100)
+        expect(assigns[:user].max_hourly_cents).to eq(200 * 100)
+        expect(assigns[:user].fee_notes).to eq "test note"
       end
     end
-
   end
 end
