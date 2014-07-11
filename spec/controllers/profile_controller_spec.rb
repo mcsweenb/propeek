@@ -7,8 +7,8 @@ RSpec.describe ProfileController, :type => :controller do
   describe "GET 'show'" do
     it "returns http success" do
       user = FactoryGirl.create(:user)
-      session = UserSession.create(user)
-
+      UserSession.create(user)
+      
       get 'show', user_id: user.id
 
       expect(response).to be_success
@@ -59,6 +59,64 @@ RSpec.describe ProfileController, :type => :controller do
         expect(response).to redirect_to(register_url)
       end
     end
+  end
+
+  describe "login and wizard workflow" do
+    context "with step 1 completed" do
+      let(:user) {create(:user, password: 'goodpass', password_confirmation: 'goodpass', registration_step_number: 1)}
+      context "login" do
+        it "should go to step 2" do
+          post 'login', user_session: {email: user.email, password: 'goodpass'}        
+          
+          expect(response).to redirect_to(register2_url)
+        end
+      end
+      context "private profile goes to" do        
+        it "should go to step 2" do
+          UserSession.create(user)
+          get :private
+          expect(response).to redirect_to(register2_url)
+        end
+      end
+    end
+
+    context "with step 2 completed" do
+      let(:user) {create(:user, password: 'goodpass', password_confirmation: 'goodpass', registration_step_number: 2)}
+      context "login" do
+        it "should go to step 3" do
+          post 'login', user_session: {email: user.email, password: 'goodpass'}        
+          
+          expect(response).to redirect_to(register3_url)
+        end
+      end
+      context "private profile goes to" do        
+        it "should go to step 3" do
+          UserSession.create(user)
+          get :private
+          expect(response).to redirect_to(register3_url)
+        end
+      end
+    end
+
+    context "with step 3 completed" do
+      let(:user) {create(:user, password: 'goodpass', password_confirmation: 'goodpass', registration_step_number: 3)}
+      context "login" do
+        it "should go to private profile" do
+          post 'login', user_session: {email: user.email, password: 'goodpass'}        
+          
+          expect(response).to redirect_to(profile_private_url)
+        end
+      end
+      context "private profile goes to" do        
+        it "should go to step 3" do
+          UserSession.create(user)
+          get :private
+          expect(response).to redirect_to(profile_private_url)
+        end
+      end
+    end
+
+
   end
 
 end

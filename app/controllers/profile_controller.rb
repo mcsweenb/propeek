@@ -40,6 +40,12 @@ class ProfileController < ApplicationController
 
   def private
     @user = current_user
+    case @user.registration_step_number
+    when 1
+      redirect_to register2_url and return
+    when 2
+      redirect_to register3_url and return
+    end
   end
 
   def login
@@ -53,11 +59,15 @@ class ProfileController < ApplicationController
         when 2
           redirect_to register3_url and return
         when 3
-          redirect_to register4_url and return
-        when 4
-          redirect_to profile_url(current_user) and return
+          redirect_to profile_private_url and return
         else
           redirect_to register_url and return
+        end
+      else
+        unless User.exists?(email: params[:user_session][:email])
+          flash[:notice] = "No user with email address"
+        else
+          flash[:notice] = "Incorrect password"
         end
       end
     else
