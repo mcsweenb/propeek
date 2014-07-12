@@ -19,12 +19,11 @@ class User < ActiveRecord::Base
   validates :phone_2, length: {maximum: 3, allow_nil: true}
   validates :phone_3, length: {maximum: 4, allow_nil: true}
 
-
-  validates :address_1, length: {maximum: 128, allow_nil: true}
-  validates :address_2, length: {maximum: 128, allow_nil: true}
-  validates :city, length: {maximum: 128, allow_nil: true}
-  validates :state, length: {maximum: 15, allow_nil: true}
-  validates :zip, length: {maximum: 32, allow_nil: true}
+  validates :address_1, length: {maximum: 128}
+  validates :address_2, length: {maximum: 128}
+  validates :city, length: {maximum: 128}
+  validates :state, length: {maximum: 64}
+  validates :zip, length: {maximum: 32}
 
   validates :fee_notes, length: {maximum: 255, allow_nil: true}
 
@@ -83,14 +82,17 @@ class User < ActiveRecord::Base
         result.first.longitude &&
         result.first.latitude
       obj.lonlat = "POINT(#{result.first.longitude} #{result.first.latitude})"
+    else
+      obj.errors[:base] << "Invalid address. Please provide a valid address"
     end
   end
-  before_save do    
-    if !company_address.blank? &&
-        !(changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
+
+  before_validation do    
+    if !(changed_attributes.keys & %w(address_1 address_2 city state zip)).empty?
       begin
         geocode
       rescue
+        errors[:base] << "Invalid address. Please provide a valid address"
       end
     end
   end

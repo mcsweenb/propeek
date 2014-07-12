@@ -136,6 +136,28 @@ RSpec.describe RegisterController, :type => :controller do
       end
     end
 
+    context "Submit step 2 with address that fails to be geocoded" do 
+      it "should show address invalid error" do
+        user = FactoryGirl.create(:user, registration_step_number: 1)
+        UserSession.create(user)
+
+        stub_request(:any, /maps.googleapis.com\/maps\/api\/geocode\/json/).
+          to_return(status: 200, body: {"results"=>[], "status"=>"ZERO_RESULTS"}.to_json, headers: {})
+
+        post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
+          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3",
+          address_1: "address 1", adderss_2: nil, city: "random", state: "blasted", zip: "232332",
+          phone_1: "111", phone_2: "222", phone_3: "1234"}
+
+        user = assigns(:user)
+        expect(user.registration_step_number).to eq(1)
+
+        expect(response).to be_success
+        expect(response).to render_template(:step2)
+        expect(user.errors[:base].first).to eq "Invalid address. Please provide a valid address"
+      end
+    end
+
     context "Submit step 2 with new valid data" do 
       it "should update user fields and associations " do
         user = FactoryGirl.create(:user)
@@ -167,24 +189,6 @@ RSpec.describe RegisterController, :type => :controller do
         expect(response).to be_success
         expect(response).to render_template(:step3)
       end
-
-      it "should not gecode an address " do
-        user = FactoryGirl.create(:user)
-        UserSession.create(user)
-
-        post 'step2', user: {company_name: "Jackals", company_website: "jackals.com", job_title: "chief jackal",
-          bio: "test bio", specialities: "s1,s2,s3", memberships: "m1,m2,m3",
-          address_1: "", adderss_2: "", city: "", state: "", zip: "",
-          phone_1: "111", phone_2: "222", phone_3: "1234"}
-
-        user = assigns(:user)
-
-        expect(user.lonlat).to be_nil
-
-        expect(response).to be_success
-        expect(response).to render_template(:step3)
-      end
-
     end
   end
 

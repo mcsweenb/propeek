@@ -36,7 +36,6 @@ class RegisterController < ApplicationController
                                         :phone_1, :phone_2, :phone_3,
                                         :address_1, :address_2, :city, :state, :zip)
                                  )
-        logger.debug params[:user].permit(:specialities)
         unless @user.update_list(Speciality, params[:user][:specialities])
           base_errors[:specialities] = "too long"
         end
@@ -51,6 +50,10 @@ class RegisterController < ApplicationController
           base_errors.each do |k, e|
             @user.errors.add(k, e)
           end
+        end
+      else
+        unless @user.errors[:base].empty?
+          flash[:notice] = @user.errors[:base].first
         end
       end
     end

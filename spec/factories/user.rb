@@ -8,6 +8,11 @@ FactoryGirl.define do
     bio { Faker::Lorem.sentence[0..255] }
     linkedin_handle { Faker::Lorem.characters(20) }
     twitter_handle { Faker::Lorem.characters(10) }
+    address_1 { Faker::Address.street_address }
+    address_2 { Faker::Address.secondary_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    zip { Faker::Address.zip }
 
     ignore do
       memberships_count 10

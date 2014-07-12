@@ -21,6 +21,8 @@ RSpec.describe User, :type => :model do
     it { is_expected.to ensure_length_of(:address_1).is_at_most(128) }
     it { is_expected.to ensure_length_of(:address_2).is_at_most(128) }
     it { is_expected.to ensure_length_of(:city).is_at_most(128) }    
+    it { is_expected.to ensure_length_of(:state).is_at_most(64) }    
+    it { is_expected.to ensure_length_of(:zip).is_at_most(32) }
   end
 
   describe "email uniqueness" do
