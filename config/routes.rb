@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'search/index/:profession/:speciality/:city' => 'search#index', :as => :search, 
+  defaults: { profession: 'Accountant', speciality: 'Immigration', city: 'New York' }
+
   post 'profile/:for_user_id/review' => "profile#create_review", :as => :create_review
 
   match 'register' => 'register#step1', :via => [:get, :post], :as => :register

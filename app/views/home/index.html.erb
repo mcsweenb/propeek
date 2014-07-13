@@ -32,35 +32,14 @@
         <div class="dd-holder">
           <h2>I'm looking for a:</h2>
           <select class="profession" >
-            <!-- <option>Choose one...</option> -->
-            <option>Accountant</option>
-            <option>Lawyer</option>
-            <option>Private Investigator</option>
+	    <%= options_from_collection_for_select(@professions, :name, :name) %>
           </select>
         </div>
         
         <div class="dd-holder">
           <h2>that specializes in:</h2>
           <select class="profession" >
-            <!-- <option>Choose one...</option> -->
-			<option>All Services</option>
-			<option>Audit Services</option>
-		    <option>Bookkeeping</option>
-		    <option>Budgeting and Planning</option>
-		    <option>Business Accounting Services</option>
-			<option>Business Financial Planning</option>
-			<option>Business Tax Returns</option>
-		    <option>Cash Flow Analysis</option>
-		    <option>CFO Services</option>
-		    <option>Controller Services</option>
-			<option>Employee Benefits</option>
-		    <option>Estate Planning</option>
-		    <option>Forecasting and Projections</option>
-			<option>Forensic accountants</option>
-			<option>Individual Accounting Services</option>
-			<option>Individual Tax Returns</option>
-		    <option>Payroll Tax Services</option>
-			<option>Taxation professional</option>
+	    <%= options_from_collection_for_select(@specialities, :name, :name) %>
           </select>
         </div>
 
