@@ -13,6 +13,7 @@ FactoryGirl.define do
     city { Faker::Address.city }
     state { Faker::Address.state }
     zip { Faker::Address.zip }
+    profession
 
     ignore do
       memberships_count 10

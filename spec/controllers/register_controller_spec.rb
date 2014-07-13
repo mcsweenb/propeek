@@ -42,11 +42,14 @@ RSpec.describe RegisterController, :type => :controller do
 
     context "Submit step 1 with all valid data" do 
       it "should update user and create associations " do
-        user_attributes = attributes_for(:user)
-        post 'step1', user: user_attributes
+        profession = create(:profession, :an_accountant)
+
+        post 'step1', user: {email: "test@example.com", password: "111111", password_confirmation: "111111", 
+          first_name: "Kerry", last_name: "Gold", 
+          profession_name: profession.name}
 
         user = assigns(:user)
-        expect(user.email).to match user_attributes[:email]
+        expect(user.email).to match "test@example.com"
         expect(user.registration_step_number).to eq(1)
 
         expect(response).to be_success

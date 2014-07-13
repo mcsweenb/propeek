@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711200423) do
+ActiveRecord::Schema.define(version: 20140713135551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,10 @@ ActiveRecord::Schema.define(version: 20140711200423) do
   create_table "memberships_users", force: true do |t|
     t.integer "membership_id"
     t.integer "user_id"
+  end
+
+  create_table "professions", force: true do |t|
+    t.string "name", limit: 64
   end
 
   create_table "reviews", force: true do |t|
@@ -136,6 +140,7 @@ ActiveRecord::Schema.define(version: 20140711200423) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.spatial  "lonlat",                   limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.string   "profession_name",          limit: 64
   end
 
   add_index "users", ["lonlat"], :name => "index_users_on_lonlat", :spatial => true

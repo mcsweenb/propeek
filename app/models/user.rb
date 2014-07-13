@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   validates :email, presence: true
+  validates :profession_name, presence: true, length: {maximum: 64}
 
   validates :first_name, presence: true, length: {maximum: 128}
   validates :last_name, presence: true, length: {maximum: 128}
@@ -56,6 +57,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :memberships
   has_and_belongs_to_many :specialities
   has_and_belongs_to_many :languages
+
+  belongs_to :profession, primary_key: :name, foreign_key: :profession_name
 
   has_many :educations, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :educations
@@ -145,7 +148,7 @@ class User < ActiveRecord::Base
     total_count = reviews.map(&:count).sum
     breakdown = []
     (1..5).each do |i|
-      r = reviews.find {|r| r.rating == i}
+      r = reviews.find {|rr| rr.rating == i}
       if r.present?
         breakdown << [i, r.count, ((r.count.to_f/total_count) * 100).round]
       else

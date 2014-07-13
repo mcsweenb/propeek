@@ -4,6 +4,10 @@ RSpec.describe User, :type => :model do
   
   describe "validations" do
     it { is_expected.to validate_presence_of :email }
+
+    it { is_expected.to validate_presence_of :profession_name }
+    it { is_expected.to ensure_length_of(:profession_name).is_at_most(64) }
+
     it { is_expected.to validate_presence_of :first_name }
     it { is_expected.to validate_presence_of :last_name }
     it { is_expected.to ensure_length_of(:linkedin_handle).is_at_least(5).is_at_most(30) }
@@ -34,6 +38,15 @@ RSpec.describe User, :type => :model do
     it "should plug in the scheme" do 
       user = create(:user, company_website: "zuper.com")
       expect(user.company_website).to eq "http://zuper.com"
+    end
+  end
+
+  describe "profession" do
+    it "should be 'Accountant'" do 
+      accountant = create(:profession, :an_accountant)
+      user = create(:user, profession: accountant )
+      expect(user.profession.name).to eq "Accountant"
+      expect(user.profession_name).to eq "Accountant"
     end
   end
 

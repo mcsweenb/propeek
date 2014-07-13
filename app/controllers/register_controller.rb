@@ -10,7 +10,9 @@ class RegisterController < ApplicationController
         @user = User.new
       end
     elsif request.post?                                                                             
-      @user = User.new(params[:user].permit(:email, :first_name, :last_name, :password, :password_confirmation, :crop_w, :crop_h, :crop_x, :crop_y))
+      @user = User.new(params[:user].permit(:email, :first_name, :last_name, :password, :password_confirmation, 
+                                            :profession_name,
+                                            :crop_w, :crop_h, :crop_x, :crop_y))
       @user.avatar = params[:user][:avatar]
       if @user.save
         @user.update_attribute(:registration_step_number, 1)

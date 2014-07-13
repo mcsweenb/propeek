@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   layout false
   
   def index
+    @professions = Profession.order(:name).all
+    @specialities = Speciality.all
   end
   
   private
