@@ -11,6 +11,10 @@
 	  <legend>Email*</legend>
           <%= f.text_field :email %>
           <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :email} %>
+
+	  <legend>Profession</legend>
+          <%= f.select "profession_name", options_from_collection_for_select(@professions, :name, :name, @user.profession_name) %>
+          <%= render :partial => 'error', :locals => {errors: @user.errors, attr: :profession_name} %>
           
 	  <legend>First name*</legend>
           <%= f.text_field :first_name %>

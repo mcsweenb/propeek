@@ -9,6 +9,7 @@ class RegisterController < ApplicationController
       else
         @user = User.new
       end
+      @professions = Profession.all
     elsif request.post?                                                                             
       @user = User.new(params[:user].permit(:email, :first_name, :last_name, :password, :password_confirmation, 
                                             :profession_name,
@@ -19,6 +20,7 @@ class RegisterController < ApplicationController
         render :step2
         return
       else
+        @professions = Profession.all
         logger.debug @user.errors.full_messages
       end
     end

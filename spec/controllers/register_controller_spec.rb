@@ -27,7 +27,7 @@ RSpec.describe RegisterController, :type => :controller do
 
         expect(response).to be_success
         expect(response).to render_template(:step1)
-        assert_select "div.error span", 5
+        assert_select "div.error span", 6
       end
 
       it "returns http success " do
@@ -35,7 +35,7 @@ RSpec.describe RegisterController, :type => :controller do
 
         expect(response).to be_success
         expect(response).to render_template(:step1)
-        assert_select "div.error span", 4
+        assert_select "div.error span", 5
       end
 
     end
