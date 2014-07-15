@@ -15,6 +15,12 @@
 - We'll get to how to tell rails where your database is a bit later
 - We need to make sure we have postgres dev libraries installed else the ruby driver installation will fail otherwise
 
+#### PostGIS
+
+You will need to install postgis 2.1 for your environment
+
+(PostGIS)[http://postgis.net/] has instructions for OSX
+
 ### The application
 
 - Install rvm. Follow instructions at (rvm.io)[http://rvm.io]
