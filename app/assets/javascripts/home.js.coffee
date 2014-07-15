@@ -18,4 +18,4 @@
 //= require main
 //= require register
 //= require review
-
+//= require search

@@ -7,7 +7,7 @@
       <div class="col">
       	<h1><%= @user.fullname %></h1>
       	<h2>Private Investigator [TODO]</h2>
-      	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
+      	<div class="rating stars-<%=@user.average_rating%>"></div><span class="num-ratings">(<%=@user.num_reviews%>)</span>
 	<div class="address">
 	  <a class="website" href="#"><%= @user.company_name%><b class="external-link"></b></a>
 	  <span class="street"><%= @user.company_address%></span>

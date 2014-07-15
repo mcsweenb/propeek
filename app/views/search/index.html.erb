@@ -1,3 +1,4 @@
+<% content_for :search_filter_bar do %>
 <div class="filter-bar">
   <div class="search-fields-summary">
     <p><strong class="profession">Lawyers</strong> specializing in <strong class="specialty">Immigration</strong> in <strong class="location">New York, NY</strong></p>
@@ -35,6 +36,7 @@
     </section>
   </div>
 </div>
+<% end %>
 
 </div>
 
@@ -49,77 +51,7 @@
 
 <div class="results">
   <ol>
-    <li>
-      <img src="_/img/content/prof-thumb3.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">1</b>
-	<h2><a href="/profile.html">Lisa Stern</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    
-    <li>
-      <img src="_/img/content/prof-thumb2.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">2</b>
-	<h2><a href="/profile.html">Leonard Stuart</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    
-    <li>
-      <img src="_/img/content/prof-thumb1.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">3</b>
-	<h2><a href="/profile.html">Peter Michaels</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    
-    <li>
-      <img src="_/img/content/prof-thumb3.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">4</b>
-	<h2><a href="/profile.html">Lisa Stern</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    
-    <li>
-      <img src="_/img/content/prof-thumb2.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">5</b>
-	<h2><a href="/profile.html">Leonard Stuart</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    
-    <li>
-      <img src="_/img/content/prof-thumb1.jpg" width="100" height="100">
-      <div class="col">
-	<b class="rank">6</b>
-	<h2><a href="/profile.html">Peter Michaels</a></h2>
-	<p class="specialty">Immigration Lawyer</p>
-	<p class="company">Stern, Stern & Associates</p>
-	<div class="rating stars-4"></div><span class="num-ratings">(5)</span>
-      </div>
-      <div class="clearfix"></div>
-    </li>
+    <%= render :partial => "search/result", collection: @results %>
   </ol>
 </div>
 

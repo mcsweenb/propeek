@@ -56,6 +56,9 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :memberships
   has_and_belongs_to_many :specialities
+  def speciality
+    specialities.first.try(:name)
+  end
   has_and_belongs_to_many :languages
 
   belongs_to :profession, primary_key: :name, foreign_key: :profession_name
@@ -141,6 +144,24 @@ class User < ActiveRecord::Base
 
   def company_address
     [address_1, address_2, city, state, zip].reject(&:blank?).join(", ")
+  end
+
+  def num_reviews
+    reviews_received.count
+  end
+
+  def average_rating
+    reviews = reviews_received.select('rating', 'count(*)').group(:rating)
+    total_score, count = 0, 0
+    reviews.each do |r| 
+      total_score += r.rating.to_i * r.count;  
+      count += r.count
+    end
+    if count > 0
+      (total_score / count.to_f).round
+    else
+      0
+    end
   end
 
   def review_breakdown

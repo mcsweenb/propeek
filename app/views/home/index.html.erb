@@ -29,31 +29,33 @@
       <a id="how-works-link-mobile" href="#how-works">How it works</a>
       <div class="search-panel">
         
-        <div class="dd-holder">
-          <h2>I'm looking for a:</h2>
-          <select class="profession" >
-	    <%= options_from_collection_for_select(@professions, :name, :name) %>
-          </select>
-        </div>
+	<%= form_tag search_url, id: 'search-form', method: :get do %>
+          <div class="dd-holder">
+            <h2>I'm looking for a:</h2>
+            <select class="profession" >
+	      <%= options_from_collection_for_select(@professions, :name, :name) %>
+            </select>
+          </div>
+          
+          <div class="dd-holder">
+            <h2>that specializes in:</h2>
+            <select class="profession" >
+	      <%= options_from_collection_for_select(@specialities, :name, :name) %>
+            </select>
+          </div>
+	  
+          <hr>
         
-        <div class="dd-holder">
-          <h2>that specializes in:</h2>
-          <select class="profession" >
-	    <%= options_from_collection_for_select(@specialities, :name, :name) %>
-          </select>
-        </div>
+          <div class="input-holder">
+            <h2>in:</h2>
+            <input type="text" value="New York, NY">
+          </div>
+          
+          <hr>
+          
+          <a class="submit btn-blue" href="#">Find Professionals</a>
+        <% end %>
 
-        <hr>
-        
-        <div class="input-holder">
-          <h2>in:</h2>
-          <input type="text" value="New York, NY">
-        </div>
-        
-        <hr>
-        
-        <a class="submit btn-blue" href="/search.html">Find Professionals</a>
-        
         <div class="clearfix"></div>
         
       </div> <!-- end search-panel -->

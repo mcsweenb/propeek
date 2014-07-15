@@ -28,5 +28,6 @@
     <% end %>
     <div class="clearfix"></div>    
   </header>  
+  <%= content_for :search_filter_bar %>
   <%= render :partial => "layouts/flash" if flash[:notice] %>
 </div>

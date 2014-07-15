@@ -1,0 +1,11 @@
+<li>
+  <%= image_tag result.avatar.url(:profile_detail), height: 100, weight: 100 %>
+  <div class="col">
+    <b class="rank"><%= result_counter %></b>
+    <h2><%= link_to result.fullname, profile_url(result) %></h2>
+    <p class="specialty"><%= result.speciality %></p>
+    <p class="company"><%= result.company_name %></p>
+    <div class="rating stars-<%= result.average_rating%>"></div><span class="num-ratings">(<%= result.num_reviews %>)</span>
+  </div>
+  <div class="clearfix"></div>
+</li>
