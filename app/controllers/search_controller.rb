@@ -1,12 +1,24 @@
 class SearchController < ApplicationController
 
   def index
-    logger.debug "search now... "
-    # @users = User.joins("specialities").
-    #   where(profession_name: params[:profession_name]).
-    #   where("speciality.name" => params[:speciality]).
-    #   where(city: params[:city]).all
-    @results = User.all
+  end
+
+  def filters
+    @professions = Profession.order("name asc")
+    @specialities = Speciality.order("name asc")
+    render json: {professions: @professions, specialities: @specialities}
+  end
+
+  def results
+    if params.include?(:profession) ||
+        params.include?(:speciality) ||
+        params.include?(:city)
+      @results = User.joins(:specialities).where("specialities.id" => params[:speciality]['id']).
+        where("profession_name" => params[:profession]['name']).
+        where("city" => params[:city]).all                                      
+    else
+      @results = User.all
+    end
   end
 
   private

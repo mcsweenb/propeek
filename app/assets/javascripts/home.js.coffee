@@ -15,7 +15,19 @@
 //=require vendor/jquery.tagsinput.min.js
 //=require vendor/jquery.raty.min.js
 //=require vendor/jquery.waterfall.js
+//= require vendor/angular
 //= require main
 //= require register
 //= require review
-//= require search
+//= require search_app
+
+class Home
+        constructor: ->
+                $('#search-form').on('click', 'a.submit', (event) =>
+                        event.preventDefault();
+                        $('#search-form').submit()
+                        );
+        
+
+jQuery ->
+        home = new Home();

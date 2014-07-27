@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	$("select").minimalect({ theme: "bubble", placeholder: "Choose one..." });
+       // $("select").minimalect({ theme: "bubble", placeholder: "Choose one..." });
 	
 	/* jQuery('#home-featured-carousel').jcarousel(); */
 	
