@@ -5,7 +5,11 @@ class RegisterController < ApplicationController
   def step1
     if request.get?
       if current_user
-        redirect_to self.send("register#{current_user.registration_step_number + 1}_path".to_sym) and return
+        if current_user.registration_step_number >= 3
+          redirect_to profile_url(current_user) and return
+          else
+          redirect_to self.send("register#{current_user.registration_step_number + 1}_path".to_sym) and return
+        end
       else
         @user = User.new
       end

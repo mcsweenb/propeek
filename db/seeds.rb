@@ -30,3 +30,15 @@ end
  'Taxation professional'].each do |speciality_name| 
   Speciality.create!(name: speciality_name)
 end
+
+User.create(email: 'zapfmann@gmail.com',
+            password: 'propeekpass',
+            password_confirmation: 'propeekpass',
+            first_name: 'Zapf',
+            last_name: 'Mann')
+
+User.create(email: 'zapfmann@gmail.com',
+            password: 'propeekpass',
+            password_confirmation: 'propeekpass',
+            first_name: 'Zapf',
+            last_name: 'Mann')

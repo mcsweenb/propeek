@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   end
   has_and_belongs_to_many :languages
 
-  belongs_to :profession, primary_key: :name, foreign_key: :profession_name
+  belongs_to :profession, primary_key: :name, foreign_key: :profession_name, inverse_of: :users
 
   has_many :educations, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :educations
@@ -69,10 +69,10 @@ class User < ActiveRecord::Base
   has_many :experiences, -> {order :start_date}, inverse_of: :user
   accepts_nested_attributes_for :experiences
 
-  has_many :reviews_received, foreign_key: :review_for_id, class_name: 'Review'
+  has_many :reviews_received, foreign_key: :review_for_id, class_name: 'Review', inverse_of: :review_for
   has_many :reviews_received_from, through: :reviews_received, source: :review_by
 
-  has_many :reviews_given, foreign_key: :review_by_id, class_name: 'Review'
+  has_many :reviews_given, foreign_key: :review_by_id, class_name: 'Review', inverse_of: :review_by
   has_many :reviews_given_to, through: :reviews_given, source: :review_for
 
   has_attached_file :avatar, 

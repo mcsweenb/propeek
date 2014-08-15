@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'search/index/:profession/:speciality/:city' => 'search#index', :as => :search, 
   defaults: { profession: 'Accountant', speciality: 'Immigration', city: 'New York' }
 

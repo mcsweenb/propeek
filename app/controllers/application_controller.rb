@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
 
-  before_filter :set_body_class
+  #before_filter :set_body_class
   
   private
 

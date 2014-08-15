@@ -11,8 +11,8 @@ class Review < ActiveRecord::Base
     less_than_or_equal_to: 5
   }
 
-  belongs_to :review_for, foreign_key: :review_for_id, class_name: 'User'
-  belongs_to :review_by, foreign_key: :review_by_id, class_name: 'User'
+  belongs_to :review_for, foreign_key: :review_for_id, class_name: 'User', inverse_of: :reviews_received
+  belongs_to :review_by, foreign_key: :review_by_id, class_name: 'User', inverse_of: :reviews_given
 
   def reviewer_name
     review_by.blank? ? "Anonymous reviewer" : review_by.fullname

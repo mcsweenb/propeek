@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814150532) do
+ActiveRecord::Schema.define(version: 20140815132157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140814150532) do
     t.datetime "avatar_updated_at"
     t.spatial  "lonlat",                   limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "profession_name",          limit: 64
+    t.boolean  "admin",                                                                             default: false
   end
 
   add_index "users", ["lonlat"], :name => "index_users_on_lonlat", :spatial => true
