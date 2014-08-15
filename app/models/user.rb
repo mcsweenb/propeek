@@ -120,10 +120,23 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_list(collection_class, params_list)
+  def update_list(collection_class, params_list, parent_record = nil, parent_key = nil)
     unless params_list.blank?
       new_list = params_list.split(",").collect do |given|
-        new_item = collection_class.find_or_initialize_by(name: given)
+        if parent_record
+          if parent_key
+            found_item = collection_class.where(name: given).where("#{parent_key}" => parent_record.id).first
+            if found_item
+              new_item = found_item
+            else
+              new_item = collection_class.new(:name => given, "#{parent_key}" => parent_record.id)
+            end
+          else
+            raise ArgumentError "parent_record and parent_key both should be defined"
+          end
+        else
+          new_item = collection_class.find_or_initialize_by(name: given)
+        end
         if new_item.valid?
           new_item.save
           new_item

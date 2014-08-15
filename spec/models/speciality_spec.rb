@@ -16,7 +16,7 @@ RSpec.describe Speciality, :type => :model do
     context "updating list for user" do
 
       it "should be updated from given csv" do 
-        user.update_list(Speciality, "a,b,c,d")
+        user.update_list(Speciality, "a,b,c,d", user.profession, :profession_id)
         expect(user.specialities.count).to eq 4
         expect(user.specialities).to include(Speciality.find_by_name(:a))
         expect(user.specialities).to include(Speciality.find_by_name(:b))

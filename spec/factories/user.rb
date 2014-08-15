@@ -23,7 +23,7 @@ FactoryGirl.define do
     
     after(:create) do |user, evaluator|
       create_list(:membership, evaluator.memberships_count, users: [user])
-      create_list(:speciality, evaluator.specialities_count, users: [user])
+      create_list(:speciality, evaluator.specialities_count, profession: user.profession, users: [user])
       create_list(:language, evaluator.languages_count, users: [user])
     end
   end

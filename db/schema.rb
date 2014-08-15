@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713135551) do
+ActiveRecord::Schema.define(version: 20140814150532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,11 @@ ActiveRecord::Schema.define(version: 20140713135551) do
   add_index "reviews", ["review_for_id"], :name => "index_reviews_on_review_for_id"
 
   create_table "specialities", force: true do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "profession_id"
   end
+
+  add_index "specialities", ["profession_id"], :name => "index_specialities_on_profession_id"
 
   create_table "specialities_users", force: true do |t|
     t.integer "speciality_id"

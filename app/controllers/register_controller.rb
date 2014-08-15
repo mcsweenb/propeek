@@ -40,7 +40,7 @@ class RegisterController < ApplicationController
                                         :phone_1, :phone_2, :phone_3,
                                         :address_1, :address_2, :city, :state, :zip)
                                  )
-        unless @user.update_list(Speciality, params[:user][:specialities])
+        unless @user.update_list(Speciality, params[:user][:specialities], @user.profession, :profession_id)
           base_errors[:specialities] = "too long"
         end
         unless @user.update_list(Membership, params[:user][:memberships])
