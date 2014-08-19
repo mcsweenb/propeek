@@ -5,22 +5,18 @@
   </div>
   <div class="search-fields-holder">
     <div class="profession-holder col">
-      <select class="profession">
-	<option>Lawyer</option>
-      </select>
+      <%= select_tag "profession", options_from_collection_for_select(@professions, "name", "name", @selected_profession.id) %>
     </div>
     <div class="specialty-holder col">
       <span class="label">specializing in</span>
       <div class="select-holder">
-	<select class="specialty">
-	  <option>Immigration</option>
-	</select>
+	<%= select_tag "speciality", options_from_collection_for_select(@specialities, "name", "name", @selected_speciality.id) %>
       </div>
     </div>
     <div class="location-holder col">
       <span class="label">in</span>
       <div class="input-holder">
-	<input type="text" value="New York, NY">
+	<input type="text" name="city" value="New York">
       </div>
     </div>
   </div>
@@ -40,28 +36,22 @@
 
 </div>
 
-<div class="view-toggle-bar">
-  <div class="inner">
-    <span>View as:</span>
-    <div class="tabs">
-      <a href="#" class="list-view active">List</a><a href="#" class="map-view">Map</a>
-    </div>
-  </div>
-</div>
-
+<%= template_include_tag "search_result.mustache" %>
 <div class="results">
   <ol>
-    <%= render :partial => "search/result", collection: @results %>
   </ol>
 </div>
 
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.config.gmaps_key%>">
+</script>
+
 <div class="map-holder">
   <div class="redo-search">
-    <!-- <input type="checkbox" checked="checked"><span>Redo search when map moves</span> -->
     <input type="checkbox" id="c1" name="cc" checked="checked" />
     <label for="c1"><span></span>Redo search when map moves</label>
   </div>
-  <iframe width='100%' height='100%' frameBorder='0' src='http://a.tiles.mapbox.com/v3/laroccaf.map-wn6a8o0o.html#13/40.741924698522055/-73.98347854614256'></iframe>
+  <div id="search-map"></div>
 </div>
 
 <div class="main-container">

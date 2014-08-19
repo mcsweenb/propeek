@@ -1,0 +1,13 @@
+{{#users}}
+<li id="result-{{id}}">  
+  <img src="{{avatar_url}}" height="100" width="100" />
+  <div class="col">
+    <b class="rank">{{rank}}</b>
+    <h2><a href="{{profile_url}}">{{fullname}}</a></h2>
+    <p class="specialty"> {{speciality}} </p>
+    <p class="company">{{company}}</p>
+    <div class="rating stars-{{average_rating}}"></div><span class="num-ratings">({{num_reviews}})</span>
+  </div>
+  <div class="clearfix"></div>
+</li>
+{{/users}}

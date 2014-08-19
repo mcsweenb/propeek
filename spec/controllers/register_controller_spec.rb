@@ -41,9 +41,9 @@ RSpec.describe RegisterController, :type => :controller do
     end
 
     context "Submit step 1 with all valid data" do 
+      let(:profession) { create(:profession, :an_accountant) }
+      
       it "should update user and create associations " do
-        profession = create(:profession, :an_accountant)
-
         post 'step1', user: {email: "test@example.com", password: "111111", password_confirmation: "111111", 
           first_name: "Kerry", last_name: "Gold", 
           profession_name: profession.name}

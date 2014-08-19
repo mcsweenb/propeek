@@ -1,7 +1,5 @@
 $(document).ready(function(){
-	
-	$("select").minimalect({ theme: "bubble", placeholder: "Choose one..." });
-	
+		
 	/* jQuery('#home-featured-carousel').jcarousel(); */
 	
 	$(".profile-link.logged-in a.menu-toggle").click(function(e){
@@ -92,7 +90,7 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		e.preventDefault();
 	});
-	
+
 	// //register template
 	// $(".add-another a").click(function(e){
 		

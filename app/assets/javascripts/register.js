@@ -3,13 +3,13 @@ var register = (function(){
     return {
 
 	setup : function () {
-	    register.setup_buttons();
-	    register.setup_photo_selector();
-	    register.setup_repeater();
-	    register.setup_datepicker();
+	    register.setupButtons();
+	    register.setupPhotoSelector();
+	    register.setupRepeater();
+	    register.setupDatepicker();
 	},
 
-	setup_datepicker : function () {
+	setupDatepicker : function () {
 	    $(".datepicker").datepicker({ 
 		dateFormat: "mm/dd/yy",
 		showAnim: "slideDown",
@@ -19,30 +19,30 @@ var register = (function(){
 	    });
 	},
 
-	setup_repeater : function () {
+	setupRepeater : function () {
 	    $(".add-another a").click(function(e){
-		var last_element, cloned, last_index, add_to, new_index;
+		var lastElement, cloned, lastIndex, addTo, newIndex;
 
-		add_to = $(this).parent().siblings(".repeater");
-		last_element = add_to.find("fieldset:last")
-		last_index = last_element.data("index");
+		addTo = $(this).parent().siblings(".repeater");
+		lastElement = addTo.find("fieldset:last")
+		lastIndex = lastElement.data("index");
 
-		new_index = last_index + 1;
+		newIndex = lastIndex + 1;
 		$(".datepicker").datepicker("destroy");
-		cloned = last_element.clone();
+		cloned = lastElement.clone();
 
-		cloned.data("index", new_index);
+		cloned.data("index", newIndex);
 
 		cloned.find("input, textarea").each(function () {
-		    $(this).attr('name', this.name.replace(/\[\d\]/, "[" + new_index + "]"));
+		    $(this).attr('name', this.name.replace(/\[\d\]/, "[" + newIndex + "]"));
 		    if ( $(this).attr('id').match(/\[id\]/) ) {
 		    } else {
-			$(this).attr('id', this.id.replace(/_\d/, '_' + new_index));
+			$(this).attr('id', this.id.replace(/_\d/, '_' + newIndex));
 		    }
 		    $(this).val('');
 		});
 
-		add_to.append(cloned);
+		addTo.append(cloned);
 		$(".datepicker").datepicker();
 		
 		e.preventDefault();
@@ -52,7 +52,7 @@ var register = (function(){
 	    });
 	},
 
-	setup_buttons : function () {
+	setupButtons : function () {
 	    $(".register_form").on("click", "a.submit", function ( ev ) {
 		ev.preventDefault();
 		$(".register_form").submit();
@@ -67,7 +67,7 @@ var register = (function(){
 	    });
 	},
 
-	setup_photo_selector: function () {
+	setupPhotoSelector: function () {
 	    var holder = document.getElementById('photo-drop-zone'),
 	    state = document.getElementById('status');
 	    

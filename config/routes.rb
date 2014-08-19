@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  get 'search/index/:profession/:speciality/:city' => 'search#index', :as => :search, 
-  defaults: { profession: 'Accountant', speciality: 'Immigration', city: 'New York' }
+  get 'search/index' => 'search#index', :as => :search
 
   post 'profile/:for_user_id/review' => "profile#create_review", :as => :create_review
 
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
   get 'logout' => 'profile#logout', :as => :logout
 
   get 'home/index'
+  get 'home/:profession/specialities' => 'home#specialities', :as => :specialities_for_profession
 
   root 'home#index'
 

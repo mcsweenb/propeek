@@ -272,13 +272,17 @@ nav a:hover {
    ============== */
 
 .map-holder { right: 0; height: 100%; position: fixed; padding-top: 112px; width: 60%; }
-.map-holder .redo-search { position: absolute; background: rgba(255,255,255,0.7); width: 100%;/*  border-bottom: 1px solid #ddd; */ padding: 3px 2%; bottom: 112px; }
+.map-holder .redo-search { position: absolute; background: rgba(255,255,255,0.7); width: 100%;/*  border-bottom: 1px solid #ddd; */ padding: 3px 2%; bottom: 112px; z-index: 1 }
 .map-holder .redo-search span { margin-left: 1%; }
 .map-holder .redo-search input[type="checkbox"] { display:none; }
 .map-holder .redo-search input[type="checkbox"] + label { color: #444; font-weight: 500;  }
 .map-holder .redo-search input[type="checkbox"] + label span { display:inline-block; width:20px; height:20px; margin:-3px 4px 0 0; vertical-align:middle; background:url(<%= asset_path 'sprites.svg' %>) 0 -658px no-repeat; cursor:pointer; }
 .map-holder .redo-search input[type="checkbox"]:checked + label span {
     background:url(<%= asset_path 'sprites.svg' %>) 0 -633px no-repeat;
+}
+.map-holder #search-map {
+    height: 100%;
+    width: 100%;
 }
 
 

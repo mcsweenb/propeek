@@ -36,6 +36,8 @@ gem 'money-rails'
 gem "paperclip", "~> 4.1"
 
 gem "rails_admin"
+gem "mustache"
+gem "stache"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'

@@ -12,6 +12,7 @@
 //
 
 //= require jquery
+//= require jquery.ui.all
 //= require jquery_ujs
 
 //=require vendor/modernizr-2.6.2.min.js
@@ -20,4 +21,4 @@
 //=require vendor/jquery.jcarousel.min.js
 //=require vendor/jquery.Jcrop.min.js
 //= require main
-
+//= require vendor/underscore.js

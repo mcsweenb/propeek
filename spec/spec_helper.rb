@@ -26,6 +26,10 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
 
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+
   config.before(:each) do
     stub_request(:any, /maps.googleapis.com\/maps\/api\/geocode/).
       to_return(status: 200, body: File.new("#{__dir__}/sample_geocode_response.json"), headers: {})

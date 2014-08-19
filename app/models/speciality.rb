@@ -6,6 +6,6 @@ class Speciality < ActiveRecord::Base
 
   has_and_belongs_to_many :users
 
-  belongs_to :profession
+  belongs_to :profession, inverse_of: :specialities
 
 end

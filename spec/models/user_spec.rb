@@ -42,10 +42,10 @@ RSpec.describe User, :type => :model do
   end
 
   describe "profession" do
-    it "should be 'Accountant'" do 
-      accountant = create(:profession, :an_accountant)
-      user = create(:user, profession: accountant )
-      expect(user.profession.name).to eq "Accountant"
+    let!(:accountant) {create(:profession, :an_accountant)}
+    let(:user) { create(:user, profession: accountant)}
+    
+    it "sets profession correctly" do 
       expect(user.profession_name).to eq "Accountant"
     end
   end

@@ -32,23 +32,19 @@
 	<%= form_tag search_url, id: 'search-form', method: :get do %>
           <div class="dd-holder">
             <h2>I'm looking for a:</h2>
-            <select class="profession" >
-	      <%= options_from_collection_for_select(@professions, :name, :name) %>
-            </select>
+	    <%= select_tag "profession", options_from_collection_for_select(@professions, "name", "name", @selected_profession.id) %>
           </div>
           
           <div class="dd-holder">
             <h2>that specializes in:</h2>
-            <select class="profession" >
-	      <%= options_from_collection_for_select(@specialities, :name, :name) %>
-            </select>
+	    <%= select_tag "speciality", options_from_collection_for_select(@specialities, "name", "name", @selected_speciality.id) %>
           </div>
 	  
           <hr>
         
           <div class="input-holder">
             <h2>in:</h2>
-            <input type="text" value="New York, NY">
+            <input type="text" name="city" value="New York">
           </div>
           
           <hr>
